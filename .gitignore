@@ -1,0 +1,9 @@
+# Default build folder
+build/*
+
+# Qt Creator
+*.autosave
+*.txt.user
+
+# Vagrant
+.vagrant/*
