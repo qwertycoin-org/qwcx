@@ -1,0 +1,10 @@
+[Icon Theme]
+Name=MaterialIcons
+Comment=Material Icons Theme
+Directories=rounded
+
+[rounded]
+Size=24
+Type=Scalable
+MinSize=16
+MaxSize=512

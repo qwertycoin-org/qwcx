@@ -1,6 +1,7 @@
 #include <iostream>
 #include <QtCore/QFile>
 #include <QtGui/QFontDatabase>
+#include <QtGui/QIcon>
 #include <QtQml/QQmlApplicationEngine>
 #include <QtWidgets/QApplication>
 #include "applicationconstants.h"
@@ -58,6 +59,7 @@ void ApplicationDelegate::initialize()
     initializeBreakpad();
     initializeCredentials();
     initializeFontDatabase();
+    initializeIconTheme();
 }
 
 void ApplicationDelegate::initializeAttributes()
@@ -104,6 +106,15 @@ void ApplicationDelegate::initializeFontDatabase()
         const int fontId = QFontDatabase::addApplicationFont(fileName);
         Q_UNUSED(fontId)
     }
+}
+
+void ApplicationDelegate::initializeIconTheme()
+{
+    QStringList searchPaths = QIcon::themeSearchPaths();
+    searchPaths.append(QStringLiteral(":/resources/icons"));
+    QIcon::setThemeSearchPaths(searchPaths);
+
+    QIcon::setThemeName(QStringLiteral("MaterialIcons"));
 }
 
 QWCX_END_NAMESPACE

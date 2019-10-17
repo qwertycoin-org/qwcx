@@ -6,4 +6,10 @@ ApplicationWindow {
     height: 480
     title: Qt.application.displayName
     visible: true
+
+    Button {
+        anchors.centerIn: parent
+        icon.name: "add"
+        text: qsTr("Add")
+    }
 }

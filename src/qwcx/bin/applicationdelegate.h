@@ -30,6 +30,7 @@ private:
     void initializeBreakpad();
     void initializeCredentials();
     void initializeFontDatabase();
+    void initializeIconTheme();
 
 private:
     QQmlApplicationEngine *m_qmlApplicationEngine;

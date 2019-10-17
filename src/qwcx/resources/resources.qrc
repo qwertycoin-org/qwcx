@@ -13,5 +13,7 @@
         <file>fonts/Roboto/Roboto-RegularItalic.ttf</file>
         <file>fonts/Roboto/Roboto-Thin.ttf</file>
         <file>fonts/Roboto/Roboto-ThinItalic.ttf</file>
+        <file>icons/MaterialIcons/index.theme</file>
+        <file>icons/MaterialIcons/rounded/add.svg</file>
     </qresource>
 </RCC>
