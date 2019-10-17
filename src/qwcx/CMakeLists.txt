@@ -8,18 +8,32 @@ set(QWCX_TARGET_VERSION "${PROJECT_VERSION}")
 
 set(TARGET_NAME "Executable_${QWCX_TARGET_NAME_CAMELCASE}")
 
+qtquick_compiler_add_resources(
+    TARGET_COMPILED_QRC
+    "${CMAKE_CURRENT_LIST_DIR}/qml/main.qrc"
+)
+
 set(TARGET_SRC
     PRIVATE
+    "${CMAKE_CURRENT_LIST_DIR}/bin/applicationconstants.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/bin/applicationconstants.h"
+    "${CMAKE_CURRENT_LIST_DIR}/bin/applicationdelegate.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/bin/applicationdelegate.h"
     "${CMAKE_CURRENT_LIST_DIR}/bin/main.cpp"
+    ${TARGET_COMPILED_QRC}
 )
 
 set(TARGET_INCLUDE_DIRS
     PRIVATE
+    "${Qt5Core_INCLUDE_DIRS}"
+    "${Qt5Qml_INCLUDE_DIRS}"
     "${Qt5Widgets_INCLUDE_DIRS}"
 )
 
 set(TARGET_LINK_LIBS
     PRIVATE
+    Qt5::Core
+    Qt5::Qml
     Qt5::Widgets
 )
 
@@ -36,6 +50,17 @@ target_sources(${TARGET_NAME} ${TARGET_SRC})
 target_include_directories(${TARGET_NAME} ${TARGET_INCLUDE_DIRS})
 target_link_libraries(${TARGET_NAME} ${TARGET_LINK_LIBS})
 target_compile_definitions(${TARGET_NAME} ${TARGET_COMPILE_DEFS})
+
+# Add application constants as preprocessor definitions (ONLY for a single file!)
+set_property(
+    SOURCE "${CMAKE_CURRENT_LIST_DIR}/bin/applicationconstants.cpp"
+    APPEND PROPERTY COMPILE_DEFINITIONS
+    QWCX_APPLICATION_DISPLAY_NAME=\"${QWCX_TARGET_DISPLAY_NAME}\"
+    QWCX_APPLICATION_NAME=\"${QWCX_TARGET_DISPLAY_NAME}\"
+    QWCX_APPLICATION_VERSION=\"${QWCX_TARGET_VERSION}\"
+    QWCX_ORGANIZATION_DOMAIN=\"${QWCX_TARGET_VENDOR_DOMAIN}\"
+    QWCX_ORGANIZATION_NAME=\"${QWCX_TARGET_VENDOR_NAME}\"
+)
 
 if(LINUX) # Linux
     set_target_properties(
