@@ -28,6 +28,7 @@ private:
     void initialize(); // all-in-one application initializer
     void initializeAttributes();
     void initializeBreakpad();
+    void initializeCredentials();
 
 private:
     QQmlApplicationEngine *m_qmlApplicationEngine;

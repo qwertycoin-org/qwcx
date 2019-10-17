@@ -54,6 +54,7 @@ void ApplicationDelegate::initialize()
 {
     initializeAttributes();
     initializeBreakpad();
+    initializeCredentials();
 }
 
 void ApplicationDelegate::initializeAttributes()
@@ -65,6 +66,15 @@ void ApplicationDelegate::initializeAttributes()
 void ApplicationDelegate::initializeBreakpad()
 {
     // TODO: Initialize Google Breakpad.
+}
+
+void ApplicationDelegate::initializeCredentials()
+{
+    QApplication::setApplicationDisplayName(ApplicationConstants::applicationDisplayName());
+    QApplication::setApplicationName(ApplicationConstants::applicationName());
+    QApplication::setApplicationVersion(ApplicationConstants::applicationVersion());
+    QApplication::setOrganizationDomain(ApplicationConstants::organizationDomain());
+    QApplication::setOrganizationName(ApplicationConstants::organizationName());
 }
 
 QWCX_END_NAMESPACE
