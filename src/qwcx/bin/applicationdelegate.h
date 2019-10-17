@@ -27,6 +27,7 @@ public slots:
 private:
     void initialize(); // all-in-one application initializer
     void initializeAttributes();
+    void initializeBreakpad();
 
 private:
     QQmlApplicationEngine *m_qmlApplicationEngine;

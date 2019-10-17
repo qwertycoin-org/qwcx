@@ -53,12 +53,18 @@ void ApplicationDelegate::handleDebugMessage(QtMsgType t,
 void ApplicationDelegate::initialize()
 {
     initializeAttributes();
+    initializeBreakpad();
 }
 
 void ApplicationDelegate::initializeAttributes()
 {
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
     QApplication::setAttribute(Qt::AA_DisableWindowContextHelpButton, true);
+}
+
+void ApplicationDelegate::initializeBreakpad()
+{
+    // TODO: Initialize Google Breakpad.
 }
 
 QWCX_END_NAMESPACE
