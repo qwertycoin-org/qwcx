@@ -29,6 +29,7 @@ private:
     void initializeAttributes();
     void initializeBreakpad();
     void initializeCredentials();
+    void initializeFontDatabase();
 
 private:
     QQmlApplicationEngine *m_qmlApplicationEngine;

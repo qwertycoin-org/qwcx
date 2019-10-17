@@ -11,6 +11,10 @@ set(QWCX_TARGET_VENDOR_NAME "Qwertycoin")
 
 set(TARGET_NAME "Executable_${QWCX_TARGET_NAME_CAMELCASE}")
 
+set(TARGET_QRC
+    "${CMAKE_CURRENT_LIST_DIR}/resources/resources.qrc"
+)
+
 qtquick_compiler_add_resources(
     TARGET_COMPILED_QRC
     "${CMAKE_CURRENT_LIST_DIR}/qml/main.qrc"
@@ -23,12 +27,14 @@ set(TARGET_SRC
     "${CMAKE_CURRENT_LIST_DIR}/bin/applicationdelegate.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/bin/applicationdelegate.h"
     "${CMAKE_CURRENT_LIST_DIR}/bin/main.cpp"
+    ${TARGET_QRC}
     ${TARGET_COMPILED_QRC}
 )
 
 set(TARGET_INCLUDE_DIRS
     PRIVATE
     "${Qt5Core_INCLUDE_DIRS}"
+    "${Qt5Gui_INCLUDE_DIRS}"
     "${Qt5Qml_INCLUDE_DIRS}"
     "${Qt5Widgets_INCLUDE_DIRS}"
 )
@@ -36,6 +42,7 @@ set(TARGET_INCLUDE_DIRS
 set(TARGET_LINK_LIBS
     PRIVATE
     Qt5::Core
+    Qt5::Gui
     Qt5::Qml
     Qt5::Widgets
 )

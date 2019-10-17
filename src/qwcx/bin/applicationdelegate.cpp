@@ -1,4 +1,6 @@
 #include <iostream>
+#include <QtCore/QFile>
+#include <QtGui/QFontDatabase>
 #include <QtQml/QQmlApplicationEngine>
 #include <QtWidgets/QApplication>
 #include "applicationconstants.h"
@@ -55,6 +57,7 @@ void ApplicationDelegate::initialize()
     initializeAttributes();
     initializeBreakpad();
     initializeCredentials();
+    initializeFontDatabase();
 }
 
 void ApplicationDelegate::initializeAttributes()
@@ -75,6 +78,32 @@ void ApplicationDelegate::initializeCredentials()
     QApplication::setApplicationVersion(ApplicationConstants::applicationVersion());
     QApplication::setOrganizationDomain(ApplicationConstants::organizationDomain());
     QApplication::setOrganizationName(ApplicationConstants::organizationName());
+}
+
+void ApplicationDelegate::initializeFontDatabase()
+{
+    const QStringList fonts = QStringList()
+        << QStringLiteral("Roboto/Roboto-Black.ttf")
+        << QStringLiteral("Roboto/Roboto-BlackItalic.ttf")
+        << QStringLiteral("Roboto/Roboto-Bold.ttf")
+        << QStringLiteral("Roboto/Roboto-BoldItalic.ttf")
+        << QStringLiteral("Roboto/Roboto-Light.ttf")
+        << QStringLiteral("Roboto/Roboto-LightItalic.ttf")
+        << QStringLiteral("Roboto/Roboto-Medium.ttf")
+        << QStringLiteral("Roboto/Roboto-MediumItalic.ttf")
+        << QStringLiteral("Roboto/Roboto-Regular.ttf")
+        << QStringLiteral("Roboto/Roboto-RegularItalic.ttf")
+        << QStringLiteral("Roboto/Roboto-Thin.ttf")
+        << QStringLiteral("Roboto/Roboto-ThinItalic.ttf");
+
+    for (const QString &font : fonts) {
+        const QString fileName = QStringLiteral(":/resources/fonts/%1").arg(font);
+        if (!QFile::exists(fileName))
+            continue;
+
+        const int fontId = QFontDatabase::addApplicationFont(fileName);
+        Q_UNUSED(fontId)
+    }
 }
 
 QWCX_END_NAMESPACE
