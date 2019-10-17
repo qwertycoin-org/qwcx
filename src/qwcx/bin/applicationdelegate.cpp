@@ -1,5 +1,6 @@
 #include <iostream>
 #include <QtQml/QQmlApplicationEngine>
+#include <QtWidgets/QApplication>
 #include "applicationconstants.h"
 #include "applicationdelegate.h"
 
@@ -9,6 +10,7 @@ ApplicationDelegate::ApplicationDelegate(QObject *parent)
     : QObject(parent),
       m_qmlApplicationEngine(nullptr)
 {
+    initialize();
 }
 
 ApplicationDelegate::~ApplicationDelegate()
@@ -46,6 +48,17 @@ void ApplicationDelegate::handleDebugMessage(QtMsgType t,
     // TODO: Handle QT_NO_WARNING_OUTPUT and QT_NO_DEBUG_OUTPUT
 
     std::cout << msg.toStdString() << std::endl;
+}
+
+void ApplicationDelegate::initialize()
+{
+    initializeAttributes();
+}
+
+void ApplicationDelegate::initializeAttributes()
+{
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
+    QApplication::setAttribute(Qt::AA_DisableWindowContextHelpButton, true);
 }
 
 QWCX_END_NAMESPACE

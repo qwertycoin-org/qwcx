@@ -25,6 +25,10 @@ public slots:
     static void handleDebugMessage(QtMsgType t, const QMessageLogContext &ctx, const QString &msg);
 
 private:
+    void initialize(); // all-in-one application initializer
+    void initializeAttributes();
+
+private:
     QQmlApplicationEngine *m_qmlApplicationEngine;
 };
 
