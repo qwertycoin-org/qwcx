@@ -79,11 +79,39 @@ if(LINUX) # Linux
         OUTPUT_NAME "${QWCX_TARGET_NAME_LOWERCASE}"
     )
 elseif(APPLE) # macOS
+    set(MACOSX_BUNDLE_ICON_FILE_NAME "icon.icns")
+
     set_target_properties(
         ${TARGET_NAME}
         PROPERTIES
         OUTPUT_NAME "${QWCX_TARGET_DISPLAY_NAME}"
+        MACOSX_BUNDLE_BUNDLE_NAME "${QWCX_TARGET_DISPLAY_NAME}"
+        MACOSX_BUNDLE_EXECUTABLE_NAME "${QWCX_TARGET_DISPLAY_NAME}"
+        MACOSX_BUNDLE_BUNDLE_VERSION "${QWCX_TARGET_VERSION}"
+        MACOSX_BUNDLE_SHORT_VERSION_STRING "${QWCX_TARGET_VERSION}"
+        MACOSX_BUNDLE_LONG_VERSION_STRING "${QWCX_TARGET_VERSION}"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "${QWCX_TARGET_VENDOR_DOMAIN_REVERSED}.${QWCX_TARGET_NAME_LOWERCASE}"
+        MACOSX_BUNDLE_INFO_STRING "" # Don't use. Depricated in Mac OS X 10.5 and newer.
+        MACOSX_BUNDLE_ICON_FILE "${MACOSX_BUNDLE_ICON_FILE_NAME}"
+        MACOSX_BUNDLE_COPYRIGHT "(c) 2019 ${QWCX_TARGET_VENDOR_NAME}"
+        MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/resources/platforms/macos/Info.plist.in"
     )
+
+    # Deploy application icon
+    set(ICON_IN "${CMAKE_CURRENT_LIST_DIR}/resources/platforms/macos/${MACOSX_BUNDLE_ICON_FILE_NAME}")
+    set(ICON_OUT "$<TARGET_FILE_DIR:${TARGET_NAME}>/../Resources/${MACOSX_BUNDLE_ICON_FILE_NAME}")
+    add_custom_command(
+        TARGET ${TARGET_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E echo "Created *.app/Contents/Resources directory."
+        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${TARGET_NAME}>/../Resources"
+        COMMAND ${CMAKE_COMMAND} -E echo "Copied the .icns file into *.app/Contents/Resources dir."
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${ICON_IN} ${ICON_OUT}
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMENT "Copying icon.icns into ${QWCX_TARGET_DISPLAY_NAME}.app/Contents/Resources"
+    )
+    unset(ICON_IN)
+    unset(ICON_OUT)
 elseif(WIN32) # Windows
     set_target_properties(
         ${TARGET_NAME}
