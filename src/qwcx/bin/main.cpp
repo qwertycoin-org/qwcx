@@ -7,6 +7,8 @@ int main(int argc, char **argv)
 {
     qInstallMessageHandler(ApplicationDelegate::handleDebugMessage);
 
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
+
     QApplication app(argc, argv);
 
     ApplicationDelegate delegate(&app);

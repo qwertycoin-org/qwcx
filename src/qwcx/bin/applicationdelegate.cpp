@@ -64,7 +64,6 @@ void ApplicationDelegate::initialize()
 
 void ApplicationDelegate::initializeAttributes()
 {
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
     QApplication::setAttribute(Qt::AA_DisableWindowContextHelpButton, true);
 }
 
