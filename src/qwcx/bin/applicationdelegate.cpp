@@ -3,7 +3,9 @@
 #include <QtGui/QFontDatabase>
 #include <QtGui/QIcon>
 #include <QtQml/QQmlApplicationEngine>
+#include <QtQuickControls2/QQuickStyle>
 #include <QtWidgets/QApplication>
+#include <QWCX/Controls/qmlcontrols_plugin.h>
 #include "applicationconstants.h"
 #include "applicationdelegate.h"
 
@@ -27,6 +29,7 @@ bool ApplicationDelegate::show()
         return false;
 
     m_qmlApplicationEngine = new QQmlApplicationEngine(this);
+    m_qmlApplicationEngine->addImportPath(QStringLiteral(":/lib"));
     m_qmlApplicationEngine->load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     return (m_qmlApplicationEngine->rootObjects().count() == 1);
@@ -58,6 +61,9 @@ void ApplicationDelegate::initialize()
     initializeAttributes();
     initializeBreakpad();
     initializeCredentials();
+    initializeDeclarativeControlsStyle();
+    initializeDeclarativeControlsFallbackStyle();
+    initializeExternalResources();
     initializeFontDatabase();
     initializeIconTheme();
 }
@@ -79,6 +85,27 @@ void ApplicationDelegate::initializeCredentials()
     QApplication::setApplicationVersion(ApplicationConstants::applicationVersion());
     QApplication::setOrganizationDomain(ApplicationConstants::organizationDomain());
     QApplication::setOrganizationName(ApplicationConstants::organizationName());
+}
+
+void ApplicationDelegate::initializeDeclarativeControlsStyle()
+{
+    QQuickStyle::addStylePath(QStringLiteral(":/lib/QWCX/Controls"));
+
+    // The style must be configured before loading QML that imports Qt Quick Controls 2.
+    // It is not possible to change the style after the QML types have been registered.
+    QQuickStyle::setStyle(QStringLiteral("Materialized"));
+}
+
+void ApplicationDelegate::initializeDeclarativeControlsFallbackStyle()
+{
+    // The fallback style must be the name of one of the built-in Qt Quick Controls 2
+    // styles, e.g. "Material".
+    QQuickStyle::setFallbackStyle(QStringLiteral("Material"));
+}
+
+void ApplicationDelegate::initializeExternalResources()
+{
+    QWCX::Controls::initialize();
 }
 
 void ApplicationDelegate::initializeFontDatabase()

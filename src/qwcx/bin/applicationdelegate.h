@@ -29,6 +29,9 @@ private:
     void initializeAttributes();
     void initializeBreakpad();
     void initializeCredentials();
+    void initializeDeclarativeControlsStyle();
+    void initializeDeclarativeControlsFallbackStyle();
+    void initializeExternalResources();
     void initializeFontDatabase();
     void initializeIconTheme();
 

@@ -14,6 +14,7 @@ project(${PROJECT_NAME} VERSION ${PROJECT_VERSION} LANGUAGES C CXX)
 
 include(qwcx/Dependencies) # Initialize external dependencies
 
+add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/src")
 
 # Additional import path used to resolve QML modules in Qt Creator's code model

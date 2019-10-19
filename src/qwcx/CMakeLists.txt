@@ -36,7 +36,9 @@ set(TARGET_INCLUDE_DIRS
     "${Qt5Core_INCLUDE_DIRS}"
     "${Qt5Gui_INCLUDE_DIRS}"
     "${Qt5Qml_INCLUDE_DIRS}"
+    "${Qt5QuickControls2_INCLUDE_DIRS}"
     "${Qt5Widgets_INCLUDE_DIRS}"
+    "${QWCX_INCLUDE_DIRS}"
 )
 
 set(TARGET_LINK_LIBS
@@ -44,7 +46,10 @@ set(TARGET_LINK_LIBS
     Qt5::Core
     Qt5::Gui
     Qt5::Qml
+    Qt5::QuickControls2
     Qt5::Widgets
+    QWCXFramework::Controls
+    QWCXFramework::Global
 )
 
 set(TARGET_COMPILE_DEFS

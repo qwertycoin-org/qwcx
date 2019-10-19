@@ -1,11 +1,8 @@
 #ifndef QWCX_APPLICATIONCONSTANTS_H
 #define QWCX_APPLICATIONCONSTANTS_H
 
-#define QWCX_BEGIN_NAMESPACE namespace QWCX {
-#define QWCX_END_NAMESPACE }
-#define QWCX_USE_NAMESPACE using namespace QWCX;
-
 #include <QtCore/QObject>
+#include <QWCX/Global/constants.h>
 
 QWCX_BEGIN_NAMESPACE
 
