@@ -14,6 +14,9 @@
         <file>fonts/Roboto/Roboto-Thin.ttf</file>
         <file>fonts/Roboto/Roboto-ThinItalic.ttf</file>
         <file>icons/MaterialIcons/index.theme</file>
-        <file>icons/MaterialIcons/rounded/add.svg</file>
+        <file>icons/MaterialIcons/outlined/account_balance.svg</file>
+        <file>icons/MaterialIcons/outlined/category.svg</file>
+        <file>icons/MaterialIcons/outlined/chat.svg</file>
+        <file>icons/MaterialIcons/outlined/more_horiz.svg</file>
     </qresource>
 </RCC>

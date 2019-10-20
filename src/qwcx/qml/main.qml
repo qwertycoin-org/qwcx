@@ -19,25 +19,25 @@ ApplicationWindow {
         dynamicRoles: false
 
         ListElement {
-            iconName: "add"
+            iconName: "account_balance"
             source: ""
             title: qsTr("Balance")
         }
 
         ListElement {
-            iconName: "add"
+            iconName: "category"
             source: ""
             title: qsTr("Categories")
         }
 
         ListElement {
-            iconName: "add"
+            iconName: "chat"
             source: ""
             title: qsTr("Chat")
         }
 
         ListElement {
-            iconName: "add"
+            iconName: "more_horiz"
             source: ""
             title: qsTr("More")
         }

@@ -1,9 +1,9 @@
 [Icon Theme]
 Name=MaterialIcons
 Comment=Material Icons Theme
-Directories=rounded
+Directories=outlined
 
-[rounded]
+[outlined]
 Size=24
 Type=Scalable
 MinSize=16
