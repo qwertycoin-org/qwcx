@@ -20,25 +20,25 @@ ApplicationWindow {
 
         ListElement {
             iconName: "account_balance"
-            source: ""
+            source: "qrc:/qml/Pages/BalancePage.qml"
             title: qsTr("Balance")
         }
 
         ListElement {
             iconName: "category"
-            source: ""
+            source: "qrc:/qml/Pages/CategoriesPage.qml"
             title: qsTr("Categories")
         }
 
         ListElement {
             iconName: "chat"
-            source: ""
+            source: "qrc:/qml/Pages/ChatPage.qml"
             title: qsTr("Chat")
         }
 
         ListElement {
             iconName: "more_horiz"
-            source: ""
+            source: "qrc:/qml/Pages/MorePage.qml"
             title: qsTr("More")
         }
     }

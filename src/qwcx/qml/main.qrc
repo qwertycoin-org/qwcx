@@ -1,6 +1,10 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/qml">
+        <file>Pages/BalancePage.qml</file>
+        <file>Pages/CategoriesPage.qml</file>
+        <file>Pages/ChatPage.qml</file>
+        <file>Pages/MorePage.qml</file>
         <file>main.qml</file>
         <file>main_desktop.qml</file>
         <file>main_mobile.qml</file>

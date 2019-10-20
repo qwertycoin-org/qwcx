@@ -5,6 +5,54 @@ Control {
     id: mobileView
 
     property ListModel model: undefined
+    readonly property alias currentIndex: tabBar.currentIndex
+    readonly property alias currentItem: swipeView.currentItem
+
+    SwipeView {
+        id: swipeView
+        anchors {
+            top: parent.top
+            right: parent.right
+            bottom: tabBar.top
+            left: parent.left
+        }
+        currentIndex: mobileView.currentIndex
+        interactive: false
+        orientation: Qt.Vertical // WARNING: Qt.Horizontal has issues when quickly resizing window
+
+        // hack-ish fix that disables SwipeView animation for transitions between items
+        Binding {
+            target: swipeView.contentItem
+            property: "highlightMoveDuration"
+            value: 0
+            when: (swipeView.contentItem instanceof ListView)
+        }
+
+        Repeater {
+            model: mobileView.model ? mobileView.model.count : 0
+            delegate: Loader {
+                readonly property int modelIndex: index
+                readonly property QtObject modelItem: mobileView.model.get(index) || null
+                readonly property bool isCurrentItem: SwipeView.isCurrentItem
+
+                function activate() {
+                    var src = modelItem.source
+                    var properties = { "title": modelItem.title }
+                    setSource(src, properties)
+                    active = true
+                }
+
+                active: false
+                asynchronous: false
+                focus: visible
+                visible: modelIndex === swipeView.currentIndex && loader.status === Loader.Ready
+
+                onIsCurrentItemChanged: { if (isCurrentItem && !active) { activate() } }
+
+                sourceComponent: Text { text: "#" + modelIndex }
+            }
+        }
+    }
 
     Rectangle {
         id: tabBarShadow
@@ -32,7 +80,9 @@ Control {
         Repeater {
             model: mobileView.model ? mobileView.model.count : 0
             delegate: TabButton {
+                readonly property int modelIndex: index
                 readonly property QtObject modelItem: mobileView.model.get(index) || null
+                readonly property bool isCurrentItem: SwipeView.isCurrentItem
 
                 width: 80
                 padding: 8
