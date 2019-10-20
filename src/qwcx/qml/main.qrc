@@ -2,5 +2,7 @@
 <RCC version="1.0">
     <qresource prefix="/qml">
         <file>main.qml</file>
+        <file>main_desktop.qml</file>
+        <file>main_mobile.qml</file>
     </qresource>
 </RCC>
