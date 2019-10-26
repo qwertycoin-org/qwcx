@@ -3,11 +3,16 @@
 #include <QtGui/QFontDatabase>
 #include <QtGui/QIcon>
 #include <QtQml/QQmlApplicationEngine>
+#include <QtQml/QQmlFileSelector>
 #include <QtQuickControls2/QQuickStyle>
 #include <QtWidgets/QApplication>
-#include <QWCX/Controls/qmlcontrols_plugin.h>
 #include "applicationconstants.h"
 #include "applicationdelegate.h"
+
+inline void initializeExternalQrcFiles()
+{
+    Q_INIT_RESOURCE(qmlcontrols);
+}
 
 QWCX_BEGIN_NAMESPACE
 
@@ -29,6 +34,14 @@ bool ApplicationDelegate::show()
         return false;
 
     m_qmlApplicationEngine = new QQmlApplicationEngine(this);
+
+    auto *selector = new QQmlFileSelector(m_qmlApplicationEngine, m_qmlApplicationEngine);
+    if (QQuickStyle::name() == QStringLiteral("Materialized")) {
+        selector->setExtraSelectors(QStringList() << QStringLiteral("material"));
+    } else {
+        // TODO: Add file selectors for other custom styles.
+    }
+
     m_qmlApplicationEngine->addImportPath(QStringLiteral(":/lib"));
     m_qmlApplicationEngine->load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
@@ -89,11 +102,10 @@ void ApplicationDelegate::initializeCredentials()
 
 void ApplicationDelegate::initializeDeclarativeControlsStyle()
 {
-    QQuickStyle::addStylePath(QStringLiteral(":/lib/QWCX/Controls"));
-
     // The style must be configured before loading QML that imports Qt Quick Controls 2.
     // It is not possible to change the style after the QML types have been registered.
     QQuickStyle::setStyle(QStringLiteral("Materialized"));
+    QQuickStyle::addStylePath(QStringLiteral(":/lib/QWCX/Controls/qml/styles"));
 }
 
 void ApplicationDelegate::initializeDeclarativeControlsFallbackStyle()
@@ -105,7 +117,7 @@ void ApplicationDelegate::initializeDeclarativeControlsFallbackStyle()
 
 void ApplicationDelegate::initializeExternalResources()
 {
-    QWCX::Controls::initialize();
+    initializeExternalQrcFiles();
 }
 
 void ApplicationDelegate::initializeFontDatabase()

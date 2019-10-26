@@ -1,5 +1,6 @@
 #include <QtWidgets/QApplication>
 #include "applicationdelegate.h"
+#include "applicationplugins.h"
 
 QWCX_USE_NAMESPACE
 

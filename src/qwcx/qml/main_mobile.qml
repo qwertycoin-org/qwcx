@@ -19,6 +19,7 @@ Control {
         currentIndex: mobileView.currentIndex
         interactive: false
         orientation: Qt.Vertical // WARNING: Qt.Horizontal has issues when quickly resizing window
+        clip: true
 
         // hack-ish fix that disables SwipeView animation for transitions between items
         Binding {
@@ -48,8 +49,6 @@ Control {
                 visible: modelIndex === swipeView.currentIndex && loader.status === Loader.Ready
 
                 onIsCurrentItemChanged: { if (isCurrentItem && !active) { activate() } }
-
-                sourceComponent: Text { text: "#" + modelIndex }
             }
         }
     }

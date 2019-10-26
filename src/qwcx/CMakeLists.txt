@@ -26,6 +26,7 @@ set(TARGET_SRC
     "${CMAKE_CURRENT_LIST_DIR}/bin/applicationconstants.h"
     "${CMAKE_CURRENT_LIST_DIR}/bin/applicationdelegate.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/bin/applicationdelegate.h"
+    "${CMAKE_CURRENT_LIST_DIR}/bin/applicationplugins.h"
     "${CMAKE_CURRENT_LIST_DIR}/bin/main.cpp"
     ${TARGET_QRC}
     ${TARGET_COMPILED_QRC}
@@ -58,6 +59,7 @@ set(TARGET_COMPILE_DEFS
     -DQT_NO_CAST_TO_ASCII
     -DQT_NO_CAST_FROM_BYTEARRAY
     -DQT_NO_URL_CAST_FROM_STRING
+    # TODO: Enable for developer builds -DQT_QML_DEBUG
 )
 
 add_executable(${TARGET_NAME} WIN32 MACOSX_BUNDLE)

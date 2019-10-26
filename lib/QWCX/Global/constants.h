@@ -5,6 +5,9 @@
 #define QWCX_END_NAMESPACE }
 #define QWCX_USE_NAMESPACE using namespace QWCX;
 
+#define QWCX_CONTROLS_BEGIN_NAMESPACE namespace QWCX { namespace Controls {
+#define QWCX_CONTROLS_END_NAMESPACE } /* Controls */ } /* QWCX */
+
 #include <QtCore/QObject>
 
 QWCX_BEGIN_NAMESPACE
