@@ -37,9 +37,9 @@ ApplicationWindow {
         }
 
         ListElement {
-            iconName: "more_horiz"
-            source: "qrc:/qml/Pages/MorePage.qml"
-            title: qsTr("More")
+            iconName: "build"
+            source: "qrc:/qml/Pages/SettingsPage.qml"
+            title: qsTr("Settings")
         }
     }
 
