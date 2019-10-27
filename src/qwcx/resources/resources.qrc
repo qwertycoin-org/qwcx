@@ -15,8 +15,12 @@
         <file>fonts/Roboto/Roboto-ThinItalic.ttf</file>
         <file>icons/MaterialIcons/index.theme</file>
         <file>icons/MaterialIcons/outlined/account_balance.svg</file>
+        <file>icons/MaterialIcons/outlined/arrow_downward.svg</file>
+        <file>icons/MaterialIcons/outlined/arrow_upward.svg</file>
+        <file>icons/MaterialIcons/outlined/build.svg</file>
         <file>icons/MaterialIcons/outlined/category.svg</file>
-        <file>icons/MaterialIcons/outlined/chat.svg</file>
+        <file>icons/MaterialIcons/outlined/center_focus_strong.svg</file>
         <file>icons/MaterialIcons/outlined/more_horiz.svg</file>
+        <file>icons/MaterialIcons/outlined/people.svg</file>
     </qresource>
 </RCC>
