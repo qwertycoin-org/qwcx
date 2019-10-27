@@ -31,9 +31,9 @@ ApplicationWindow {
         }
 
         ListElement {
-            iconName: "chat"
-            source: "qrc:/qml/Pages/ChatPage.qml"
-            title: qsTr("Chat")
+            iconName: "people"
+            source: "qrc:/qml/Pages/RecipientsPage.qml"
+            title: qsTr("Recipients")
         }
 
         ListElement {
