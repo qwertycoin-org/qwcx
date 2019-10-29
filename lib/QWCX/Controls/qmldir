@@ -2,3 +2,4 @@ module QWCX.Controls
 Heading 1.0 ./qml/controls/Heading.qml
 plugin qmlcontrolsplugin
 classname QmlControlsPlugin
+typeinfo qmlcontrols.qmltypes
