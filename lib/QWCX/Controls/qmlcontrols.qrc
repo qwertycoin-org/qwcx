@@ -4,6 +4,7 @@
         <file>qml/controls/+material/Heading.qml</file>
         <file>qml/controls/Heading.qml</file>
         <file>qml/styles/Materialized/Button.qml</file>
+        <file>qml/styles/Materialized/Frame.qml</file>
         <file>qmldir</file>
     </qresource>
 </RCC>
