@@ -12,7 +12,8 @@ ApplicationWindow {
     visible: true
 
     Material.theme: Material.Light
-    Material.accent: "#FF8754"
+    Material.accent: Material.color(Material.Amber, Material.Shade800)
+    Material.primary: Material.background
 
     ListModel {
         id: pages
