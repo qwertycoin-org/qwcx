@@ -1,10 +1,10 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/lib/QWCX/Controls">
-        <file>qml/controls/+material/Heading.qml</file>
-        <file>qml/controls/Heading.qml</file>
-        <file>qml/styles/Materialized/Button.qml</file>
-        <file>qml/styles/Materialized/Frame.qml</file>
+        <file>imports/controls/+material/Heading.qml</file>
+        <file>imports/controls/Heading.qml</file>
+        <file>imports/styles/Materialized/Button.qml</file>
+        <file>imports/styles/Materialized/Frame.qml</file>
         <file>qmldir</file>
     </qresource>
 </RCC>

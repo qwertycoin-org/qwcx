@@ -105,7 +105,7 @@ void ApplicationDelegate::initializeDeclarativeControlsStyle()
     // The style must be configured before loading QML that imports Qt Quick Controls 2.
     // It is not possible to change the style after the QML types have been registered.
     QQuickStyle::setStyle(QStringLiteral("Materialized"));
-    QQuickStyle::addStylePath(QStringLiteral(":/lib/QWCX/Controls/qml/styles"));
+    QQuickStyle::addStylePath(QStringLiteral(":/lib/QWCX/Controls/imports/styles"));
 }
 
 void ApplicationDelegate::initializeDeclarativeControlsFallbackStyle()
