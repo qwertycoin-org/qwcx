@@ -13,20 +13,28 @@ qtquick_compiler_add_resources(
 set(TARGET_SRC
     "${CMAKE_CURRENT_LIST_DIR}/qmlcontrolsplugin.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/qmlcontrolsplugin.h"
+    "${CMAKE_CURRENT_LIST_DIR}/qrcodeitem.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/qrcodeitem.h"
     ${TARGET_COMPILED_QRC}
 )
 
 set(TARGET_INCLUDE_DIRS
     PUBLIC
     "${Qt5Core_INCLUDE_DIRS}"
+    "${Qt5Gui_INCLUDE_DIRS}"
     "${Qt5Qml_INCLUDE_DIRS}"
+    "${Qt5Quick_INCLUDE_DIRS}"
+    "${ZXing_INCLUDE_DIRS}"
     "${${PROJECT_NAME_CAMELCASE}_INCLUDE_DIRS}"
 )
 
 set(TARGET_LINK_LIBS
     PRIVATE
     Qt5::Core
+    Qt5::Gui
     Qt5::Qml
+    Qt5::Quick
+    ZXing::Core
 )
 
 set(TARGET_COMPILE_DEFS
