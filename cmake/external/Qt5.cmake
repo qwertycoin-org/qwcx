@@ -9,7 +9,7 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
-set(Qt5_COMPONENTS Core Gui Network Qml Quick QuickCompiler QuickControls2 Svg Widgets)
+set(Qt5_COMPONENTS Core Gui Multimedia Network Qml Quick QuickCompiler QuickControls2 Svg Widgets)
 
 if(EXISTS "${Qt5_DIR}" AND IS_DIRECTORY "${Qt5_DIR}")
     message(STATUS "Qt5_DIR is set. Using precompiled Qt5.")
