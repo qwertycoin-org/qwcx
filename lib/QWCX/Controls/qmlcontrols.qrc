@@ -2,7 +2,9 @@
 <RCC version="1.0">
     <qresource prefix="/lib/QWCX/Controls">
         <file>imports/controls/+material/Heading.qml</file>
+        <file>imports/controls/+material/OutlinedButton.qml</file>
         <file>imports/controls/Heading.qml</file>
+        <file>imports/controls/OutlinedButton.qml</file>
         <file>imports/styles/Materialized/Button.qml</file>
         <file>imports/styles/Materialized/Frame.qml</file>
         <file>qmldir</file>

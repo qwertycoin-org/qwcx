@@ -1,5 +1,6 @@
 module QWCX.Controls
 Heading 1.0 ./imports/controls/Heading.qml
+OutlinedButton 1.0 ./imports/controls/OutlinedButton.qml
 plugin qmlcontrolsplugin
 classname QmlControlsPlugin
 typeinfo qmlcontrols.qmltypes
