@@ -13,13 +13,12 @@ Control {
         anchors {
             top: parent.top
             right: parent.right
-            bottom: tabBar.top
+            bottom: toolBar.top
             left: parent.left
         }
         currentIndex: mobileView.currentIndex
         interactive: false
         orientation: Qt.Vertical // WARNING: Qt.Horizontal has issues when quickly resizing window
-        clip: true
 
         // hack-ish fix that disables SwipeView animation for transitions between items
         Binding {
@@ -53,47 +52,43 @@ Control {
         }
     }
 
-    Rectangle {
-        id: tabBarShadow
+    ToolBar {
+        id: toolBar
         anchors {
             right: parent.right
-            bottom: tabBar.top
+            bottom: parent.bottom
             left: parent.left
         }
-        height: 3
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: "transparent" }
-            GradientStop { position: 1.0; color: "black" }
-        }
-        opacity: 0.2
-    }
+        spacing: 0
 
-    TabBar {
-        id: tabBar
-        anchors {
-            bottom: parent.bottom
-            horizontalCenter: parent.horizontalCenter
-        }
-        position: TabBar.Footer
+        TabBar {
+            id: tabBar
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
+            position: TabBar.Footer
 
-        Repeater {
-            model: mobileView.model ? mobileView.model.count : 0
-            delegate: TabButton {
-                readonly property int modelIndex: index
-                readonly property QtObject modelItem: mobileView.model.get(index) || null
-                readonly property bool isCurrentItem: SwipeView.isCurrentItem
+            Repeater {
+                model: mobileView.model ? mobileView.model.count : 0
+                delegate: TabButton {
+                    readonly property int modelIndex: index
+                    readonly property QtObject modelItem: mobileView.model.get(index) || null
+                    readonly property bool isCurrentItem: SwipeView.isCurrentItem
 
-                width: 80
-                padding: 8
-                display: TabButton.TextUnderIcon
-                spacing: 1
-                font {
-                    capitalization: Font.MixedCase
-                    pixelSize: 12
+                    width: 80
+                    padding: 8
+                    display: TabButton.TextUnderIcon
+                    spacing: 1
+                    font {
+                        capitalization: Font.MixedCase
+                        pixelSize: 12
+                    }
+                    icon.name: modelItem ? modelItem.iconName : ""
+                    text: modelItem ? modelItem.title : ""
                 }
-                icon.name: modelItem ? modelItem.iconName : ""
-                text: modelItem ? modelItem.title : ""
             }
         }
-    } // TabBar
+    } // ToolBar
 }
