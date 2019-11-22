@@ -1,4 +1,6 @@
 module QWCX.Controls
+CarouselDelegate 1.0 ./imports/controls/CarouselDelegate.qml
+CarouselView 1.0 ./imports/controls/CarouselView.qml
 Heading 1.0 ./imports/controls/Heading.qml
 OutlinedButton 1.0 ./imports/controls/OutlinedButton.qml
 QwcTransactionDelegate 1.0 ./imports/controls/QwcTransactionDelegate.qml

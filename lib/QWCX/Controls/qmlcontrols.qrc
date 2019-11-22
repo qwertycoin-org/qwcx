@@ -1,10 +1,14 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/lib/QWCX/Controls">
+        <file>imports/controls/+material/CarouselDelegate.qml</file>
+        <file>imports/controls/+material/CarouselView.qml</file>
         <file>imports/controls/+material/Heading.qml</file>
         <file>imports/controls/+material/OutlinedButton.qml</file>
         <file>imports/controls/+material/QwcTransactionDelegate.qml</file>
         <file>imports/controls/+material/QwcTransactionListView.qml</file>
+        <file>imports/controls/CarouselDelegate.qml</file>
+        <file>imports/controls/CarouselView.qml</file>
         <file>imports/controls/Heading.qml</file>
         <file>imports/controls/OutlinedButton.qml</file>
         <file>imports/controls/QwcTransactionDelegate.qml</file>
