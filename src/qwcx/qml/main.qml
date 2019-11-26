@@ -26,9 +26,9 @@ ApplicationWindow {
         }
 
         ListElement {
-            iconName: "category"
-            source: "qrc:/qml/Pages/CategoriesPage.qml"
-            title: qsTr("Categories")
+            iconName: "list_alt"
+            source: "qrc:/qml/Pages/TransactionHistoryPage.qml"
+            title: qsTr("History")
         }
 
         ListElement {
