@@ -239,6 +239,17 @@ Page {
                             confirmations: modelItem.confirmations || 0
                             timestamp: new Date(modelItem.timestamp || null)
                             hash: modelItem.hash || ""
+
+                            onClicked: {
+                                var item = transactionDetailsComponent
+                                var properties = {
+                                    title: qsTr("Transaction Details"),
+                                    amount: modelItem.amount
+                                }
+                                var operation = StackView.PushTransition
+
+                                balancePage.push(item, properties, operation)
+                            }
                         }
                         interactive: false
                     }
@@ -510,5 +521,11 @@ Page {
         id: qrCodeScannerComponent
 
         QrCodeScannerPage { }
+    }
+
+    Component {
+        id: transactionDetailsComponent
+
+        TransactionDetailsPage { }
     }
 }
