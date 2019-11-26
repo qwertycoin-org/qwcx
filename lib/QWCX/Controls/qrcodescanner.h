@@ -17,6 +17,7 @@ class QrCodeScanner : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QRect cropArea READ cropArea WRITE setCropArea NOTIFY cropAreaChanged)
+    Q_PROPERTY(int interval READ interval WRITE setInterval NOTIFY intervalChanged)
     Q_PROPERTY(bool running READ isRunning WRITE setRunning NOTIFY runningChanged)
     Q_PROPERTY(QVariant source READ source WRITE setSource NOTIFY sourceChanged)
     Q_PROPERTY(QString text READ text NOTIFY textChanged)
@@ -28,6 +29,9 @@ public:
     void setCropArea(const QRect &cropArea);
     QRect cropArea() const;
 
+    void setInterval(const int interval);
+    int interval() const;
+
     void setRunning(const bool running);
     bool isRunning() const;
 
@@ -38,6 +42,7 @@ public:
 
 Q_SIGNALS:
     void cropAreaChanged();
+    void intervalChanged();
     void runningChanged();
     void sourceChanged();
     void textChanged();

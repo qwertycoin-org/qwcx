@@ -45,6 +45,20 @@ QRect QrCodeScanner::cropArea() const
     return m_cropArea;
 }
 
+void QrCodeScanner::setInterval(const int interval)
+{
+    if (m_timer->interval() == interval)
+        return;
+
+    m_timer->setInterval(interval);
+    Q_EMIT intervalChanged();
+}
+
+int QrCodeScanner::interval() const
+{
+    return m_timer->interval();
+}
+
 void QrCodeScanner::setRunning(const bool running)
 {
     if (m_timer->isActive() == running)
