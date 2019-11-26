@@ -2,7 +2,6 @@
 <RCC version="1.0">
     <qresource prefix="/qml">
         <file>Pages/BalancePage.qml</file>
-        <file>Pages/CategoriesPage.qml</file>
         <file>Pages/FundsRequestPage.qml</file>
         <file>Pages/FundsTransferPage.qml</file>
         <file>Pages/QrCodeScannerPage.qml</file>
