@@ -71,10 +71,10 @@ void QrCodeItem::paint(QPainter *painter)
             const int offset = i * 4;
 
             // ARGB32
-            image.bits()[offset + 0] = color().blue();
-            image.bits()[offset + 1] = color().green();
-            image.bits()[offset + 2] = color().red();
-            image.bits()[offset + 3] = isFilled ? color().alpha() : 0;
+            image.bits()[offset + 0] = uchar(color().blue());
+            image.bits()[offset + 1] = uchar(color().green());
+            image.bits()[offset + 2] = uchar(color().red());
+            image.bits()[offset + 3] = isFilled ? uchar(color().alpha()) : 0;
         }
     } catch (const std::exception &) {
         image.fill(Qt::transparent);
