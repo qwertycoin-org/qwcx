@@ -263,6 +263,14 @@ Page {
                         topInset: 0
                         bottomInset: 0
                         text: qsTr("Show all transactions...")
+
+                        onClicked: {
+                            var item = transactionHistoryComponent
+                            var properties = {}
+                            var operation = StackView.PushTransition
+
+                            balancePage.push(item, properties, operation)
+                        }
                     }
                 }
             }
@@ -527,5 +535,11 @@ Page {
         id: transactionDetailsComponent
 
         TransactionDetailsPage { }
+    }
+
+    Component {
+        id: transactionHistoryComponent
+
+        TransactionHistoryPage { }
     }
 }

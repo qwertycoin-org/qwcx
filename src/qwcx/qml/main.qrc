@@ -9,6 +9,7 @@
         <file>Pages/RecipientsPage.qml</file>
         <file>Pages/SettingsPage.qml</file>
         <file>Pages/TransactionDetailsPage.qml</file>
+        <file>Pages/TransactionHistoryPage.qml</file>
         <file>main.qml</file>
         <file>main_desktop.qml</file>
         <file>main_mobile.qml</file>
