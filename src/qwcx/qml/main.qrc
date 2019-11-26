@@ -5,6 +5,7 @@
         <file>Pages/CategoriesPage.qml</file>
         <file>Pages/FundsRequestPage.qml</file>
         <file>Pages/FundsTransferPage.qml</file>
+        <file>Pages/QrCodeScannerPage.qml</file>
         <file>Pages/RecipientsPage.qml</file>
         <file>Pages/SettingsPage.qml</file>
         <file>main.qml</file>
