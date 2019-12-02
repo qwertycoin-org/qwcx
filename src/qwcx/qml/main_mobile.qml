@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import "./Pages" as Pages
 
 StackView {
     id: mobileView
@@ -101,5 +102,27 @@ StackView {
         }
     }
 
-    Component.onCompleted: mobileView.push(mainView)
+    Component {
+        id: welcomeView
+
+        Pages.WelcomePage {
+            onActionChosen: {
+                switch (action) {
+                case "create":
+                    break
+                case "restore":
+                    break
+                default:
+                    // unknown action, do nothing
+                    break
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        var authorized = false
+        var initialView = authorized ? mainView : welcomeView
+        mobileView.push(initialView)
+    }
 }
