@@ -123,6 +123,26 @@ StackView {
     }
 
     Component {
+        id: walletRestorationView
+
+        Pages.WalletRestorationPage {
+            onActionChosen: {
+                switch (action) {
+                case "cancel":
+                    mobileView.replace(this, welcomeView, {}, StackView.PopTransition)
+                    break
+                case "done":
+                    mobileView.replace(this, mainView, {}, StackView.PushTransition)
+                    break
+                default:
+                    // unknown action, do nothing
+                    break
+                }
+            }
+        }
+    }
+
+    Component {
         id: welcomeView
 
         Pages.WelcomePage {
@@ -132,6 +152,7 @@ StackView {
                     mobileView.replace(this, walletCreationView, {}, StackView.PushTransition)
                     break
                 case "restore":
+                    mobileView.replace(this, walletRestorationView, {}, StackView.PushTransition)
                     break
                 default:
                     // unknown action, do nothing
