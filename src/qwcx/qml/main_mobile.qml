@@ -55,6 +55,31 @@ StackView {
                         visible: isCurrentItem && loader.status === Loader.Ready
 
                         onIsCurrentItemChanged: { if (isCurrentItem && !active) { activate() } }
+
+                        Connections {
+                            target: item || null
+                            ignoreUnknownSignals: true
+                            enabled: {
+                                if (!item)
+                                    return false
+
+                                if (!(item instanceof Page))
+                                    return false
+
+                                if (!item.actionChosen)
+                                    return false
+
+                                if (typeof item.actionChosen !== "function")
+                                    return false
+
+                                return true
+                            }
+
+                            onActionChosen: {
+                                if (action === "logout")
+                                    mobileView.replace(mobileView.get(0, StackView.DontLoad), welcomeView, {}, StackView.PopTransition)
+                            }
+                        }
                     }
                 }
             } // SwipeView (contentItem)
