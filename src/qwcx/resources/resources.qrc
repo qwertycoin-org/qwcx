@@ -29,5 +29,6 @@
         <file>icons/MaterialIcons/outlined/more_horiz.svg</file>
         <file>icons/MaterialIcons/outlined/more_vert.svg</file>
         <file>icons/MaterialIcons/outlined/people.svg</file>
+        <file>icons/MaterialIcons/outlined/person_add.svg</file>
     </qresource>
 </RCC>
