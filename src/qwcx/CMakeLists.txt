@@ -48,6 +48,7 @@ set(TARGET_LINK_LIBS
     Qt5::Gui
     Qt5::Qml
     Qt5::QuickControls2
+    Qt5::Svg
     Qt5::Widgets
     QWCXFramework::Controls
     QWCXFramework::Global
@@ -62,7 +63,11 @@ set(TARGET_COMPILE_DEFS
     # TODO: Enable for developer builds -DQT_QML_DEBUG
 )
 
-add_executable(${TARGET_NAME} WIN32 MACOSX_BUNDLE)
+if(ANDROID)
+    add_library(${TARGET_NAME} MODULE)
+else()
+    add_executable(${TARGET_NAME} WIN32 MACOSX_BUNDLE)
+endif()
 target_sources(${TARGET_NAME} ${TARGET_SRC})
 target_include_directories(${TARGET_NAME} ${TARGET_INCLUDE_DIRS})
 target_link_libraries(${TARGET_NAME} ${TARGET_LINK_LIBS})
@@ -79,7 +84,17 @@ set_property(
     QWCX_ORGANIZATION_NAME=\"${QWCX_TARGET_VENDOR_NAME}\"
 )
 
-if(LINUX) # Linux
+if(ANDROID) # Android
+    set_target_properties(
+        ${TARGET_NAME}
+        PROPERTIES
+        OUTPUT_NAME "${QWCX_TARGET_NAME_LOWERCASE}"
+        # Not having this flag set will cause the executable to have main()
+        # hidden and it can thus no longer be loaded through dlopen().
+        C_VISIBILITY_PRESET "default"
+        CXX_VISIBILITY_PRESET "default"
+    )
+elseif(LINUX) # Linux
     set_target_properties(
         ${TARGET_NAME}
         PROPERTIES
