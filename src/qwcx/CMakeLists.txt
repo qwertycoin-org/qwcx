@@ -94,7 +94,7 @@ if(ANDROID) # Android
         C_VISIBILITY_PRESET "default"
         CXX_VISIBILITY_PRESET "default"
     )
-elseif(LINUX) # Linux
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux") # Linux
     set_target_properties(
         ${TARGET_NAME}
         PROPERTIES
