@@ -81,13 +81,13 @@ Vagrant.configure("2") do |config|
             cmake --build . --config Release
         SHELL
 
-        linux.vm.provision "check", type: "shell", run: "never", inline: <<-SHELL
+        linux_android.vm.provision "check", type: "shell", run: "never", inline: <<-SHELL
             export ANDROID_NDK_r18b="$HOME/.android/android-ndk-r18b"
             cd \"#{VAGRANT_BUILD_FOLDER}\"
             ctest -C Release
         SHELL
 
-        linux.vm.provision "deploy", type: "shell", run: "never", inline: <<-SHELL
+        linux_android.vm.provision "deploy", type: "shell", run: "never", inline: <<-SHELL
             export ANDROID_NDK_r18b="$HOME/.android/android-ndk-r18b"
             cd \"#{VAGRANT_BUILD_FOLDER}\"
             # TODO: cmake --build . --config Release --target package
