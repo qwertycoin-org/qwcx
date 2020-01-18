@@ -33,7 +33,17 @@ if(TARGET Qt5::qmake)
     message(STATUS "QT_INSTALL_LIBS: ${QT_INSTALL_LIBS}")
     message(STATUS "QT_INSTALL_PLUGINS: ${QT_INSTALL_PLUGINS}")
 
-    if(APPLE AND EXISTS "${QT_INSTALL_BINS}/macdeployqt")
+    if(ANDROID)
+        add_executable(Qt5::androiddeployqt IMPORTED)
+
+        set_target_properties(
+            Qt5::androiddeployqt
+            PROPERTIES IMPORTED_LOCATION "${QT_INSTALL_BINS}/androiddeployqt"
+        )
+        set(Qt5_androiddeployqt_FOUND TRUE)
+
+        message(STATUS "Found androiddeployqt ${QT_INSTALL_BINS}/androiddeployqt")
+    elseif(APPLE AND EXISTS "${QT_INSTALL_BINS}/macdeployqt")
         add_executable(Qt5::macdeployqt IMPORTED)
 
         set_target_properties(
