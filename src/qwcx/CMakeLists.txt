@@ -94,6 +94,43 @@ if(ANDROID) # Android
         C_VISIBILITY_PRESET "default"
         CXX_VISIBILITY_PRESET "default"
     )
+
+    if(Qt5_androiddeployqt_FOUND AND (NOT ${PROJECT_NAME}-MultiAbiBuild))
+        if(DEFINED ENV{JAVA_HOME})
+            set(JAVA_HOME $ENV{JAVA_HOME} CACHE INTERNAL "Saved JAVA_HOME variable")
+        endif()
+        if(JAVA_HOME)
+            set(android_deploy_qt_jdk "--jdk ${JAVA_HOME}")
+        endif()
+
+        if(ANDROID_SDK_PLATFORM)
+            set(android_deploy_qt_platform "--android-platform ${ANDROID_SDK_PLATFORM}")
+        endif()
+
+        # This generator expression shouldn't be used outside of custom target declarations!
+        set(ANDROID_DEPLOY_QT "$<TARGET_FILE:Qt5::androiddeployqt>")
+
+        add_custom_target(apk_unsigned
+            COMMAND ${CMAKE_COMMAND} -E env JAVA_HOME=${JAVA_HOME} ${ANDROID_DEPLOY_QT}
+            --input "${CMAKE_BINARY_DIR}/android_deployment_settings.json"
+            --output "${CMAKE_BINARY_DIR}/android-build"
+            --apk "${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.apk"
+            --release
+            ${android_deploy_qt_platform}
+            ${android_deploy_qt_jdk}
+        VERBATIM)
+
+        add_custom_target(aab_unsigned
+            COMMAND ${CMAKE_COMMAND} -E env JAVA_HOME=${JAVA_HOME} ${ANDROID_DEPLOY_QT}
+            --input "${CMAKE_BINARY_DIR}/android_deployment_settings.json"
+            --output "${CMAKE_BINARY_DIR}/android-build"
+            --apk "${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.apk"
+            --aab
+            --release
+            ${android_deploy_qt_platform}
+            ${android_deploy_qt_jdk}
+        VERBATIM)
+    endif()
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux") # Linux
     set_target_properties(
         ${TARGET_NAME}
