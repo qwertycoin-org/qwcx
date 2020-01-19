@@ -32,7 +32,7 @@ endif()
 
 ExternalProject_Add(ZXing
     GIT_REPOSITORY "https://github.com/nu-book/zxing-cpp.git"
-    GIT_TAG master # TODO: set to "v1.0.8" or higher
+    GIT_TAG v1.0.8
     GIT_SHALLOW TRUE
     GIT_PROGRESS FALSE
 
