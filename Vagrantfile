@@ -49,48 +49,85 @@ Vagrant.configure("2") do |config|
         linux_android.vm.box = "bento/ubuntu-18.04"
         linux_android.vm.box_check_update = false
 
-        linux_android.vm.provision "bootstrap", type: "shell", run: "once", inline: <<-SHELL
-            apt update
-            apt install -y build-essential unzip
+        linux_android.vm.provision "bootstrap", type: "shell", privileged: false, run: "once", inline: <<-SHELL
+            sudo apt update
+            sudo apt install -y build-essential unzip
+
+            echo "Installing JDK 8..."
+            sudo apt install -y lib32z1 openjdk-8-jdk
+            export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+            echo "Done.\n"
 
             echo "Installing latest CMake..."
-            wget -O /tmp/cmake.sh -q https://github.com/Kitware/CMake/releases/download/v3.16.2/cmake-3.16.2-Linux-x86_64.sh
-            sh /tmp/cmake.sh --prefix=/usr --skip-license
+            CMAKE_URL=https://github.com/Kitware/CMake/releases/download/v3.16.2/cmake-3.16.2-Linux-x86_64.sh
+            wget -O /tmp/cmake.sh -nv $CMAKE_URL
+            sudo sh /tmp/cmake.sh --prefix=/usr --skip-license
+            echo "Done.\n"
 
-            echo "Installing Android NDK..."
+            echo "Installing Android SDK..."
             mkdir -p "$HOME/.android"
-            wget -O "$HOME/.android/android-ndk-r18b-linux-x86_64.zip" -q \
-                    "https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip"
-            unzip -qq "$HOME/.android/android-ndk-r18b-linux-x86_64.zip" -d "$HOME/.android"
+            ANDROID_SDK_URL=https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+            wget -O "$HOME/.android/sdk-tools-linux-4333796.zip" -q "$ANDROID_SDK_URL"
+            unzip -qq "$HOME/.android/sdk-tools-linux-4333796.zip" -d "$HOME/.android/sdk"
+            export ANDROID_SDK="$HOME/.android/sdk"
+            echo "Done.\n"
+
+            echo "Installing Android NDK and other packages..."
+            cd "$ANDROID_SDK/tools/bin"
+            yes | ./sdkmanager --licenses 2>&1 > /dev/null
+            yes | ./sdkmanager --update 2>&1 > /dev/null
+            yes | ./sdkmanager --install "build-tools;28.0.3" 2>&1 > /dev/null
+            yes | ./sdkmanager --install "ndk;21.0.6113669" 2>&1 > /dev/null
+            yes | ./sdkmanager --install "platforms;android-29" 2>&1 > /dev/null
+            yes | ./sdkmanager --install "platform-tools" "tools" 2>&1 > /dev/null
+            export ANDROID_NDK="$ANDROID_SDK/ndk/21.0.6113669"
+            echo "Done.\n"
+
+            echo "Saving environment variables..."
+            echo "\nexport JAVA_HOME=$JAVA_HOME" >> $HOME/.profile
+            echo "\nexport ANDROID_SDK=$ANDROID_SDK" >> $HOME/.profile
+            echo "\nexport ANDROID_NDK=$ANDROID_NDK" >> $HOME/.profile
+            echo "Done.\n"
         SHELL
 
-        linux_android.vm.provision "configure", type: "shell", run: "never", inline: <<-SHELL
-            export ANDROID_NDK_r18b="$HOME/.android/android-ndk-r18b"
-            mkdir -p \"#{VAGRANT_BUILD_FOLDER}\" && cd \"#{VAGRANT_BUILD_FOLDER}\"
+        linux_android.vm.provision "configure", type: "shell", privileged: false, run: "never", inline: <<-SHELL
+            QT_VERSION=5.14.1
+            QT_DIR="\"#{VAGRANT_BUILD_FOLDER}\"/Qt5/$QT_VERSION/android"
+
+            export PATH="$QT_DIR/bin:$PATH"
+
             cmake -DCMAKE_BUILD_TYPE=Release \
-                  -DCMAKE_TOOLCHAIN_FILE=\"#{VAGRANT_SYNCED_FOLDER}\"/cmake/polly/android-ndk-r18b-api-21-x86-clang-libcxx.cmake \
-                  -DANDROID_ABI:STRING=x86 \
+                  -DCMAKE_FIND_ROOT_PATH=$QT_DIR \
+                  -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+                  -DANDROID_ABI:STRING=x86_64 \
+                  -DANDROID_BUILD_ABI_arm64-v8a:BOOL=ON \
+                  -DANDROID_BUILD_ABI_armeabi-v7a:BOOL=ON \
+                  -DANDROID_BUILD_ABI_x86:BOOL=ON \
+                  -DANDROID_BUILD_ABI_x86_64:BOOL=ON \
                   -DANDROID_NATIVE_API_LEVEL:STRING=21 \
-                  -DQT5_DOWNLOAD_VERSION=5.14.0 \
-                  \"#{VAGRANT_SYNCED_FOLDER}\"
+                  -DANDROID_NDK=$ANDROID_NDK \
+                  -DANDROID_SDK=$ANDROID_SDK \
+                  -DANDROID_STL=c++_shared \
+                  -DANDROID_PLATFORM=android-21 \
+                  -DANDROID_TOOLCHAIN=clang \
+                  -DQT5_DOWNLOAD_VERSION=$QT_VERSION \
+                  -B \"#{VAGRANT_BUILD_FOLDER}\" \
+                  -S \"#{VAGRANT_SYNCED_FOLDER}\"
         SHELL
 
-        linux_android.vm.provision "build", type: "shell", run: "never", inline: <<-SHELL
-            export ANDROID_NDK_r18b="$HOME/.android/android-ndk-r18b"
+        linux_android.vm.provision "build", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"#{VAGRANT_BUILD_FOLDER}\"
-            cmake --build . --config Release
+            cmake --build . --config Release --target all
         SHELL
 
-        linux_android.vm.provision "check", type: "shell", run: "never", inline: <<-SHELL
-            export ANDROID_NDK_r18b="$HOME/.android/android-ndk-r18b"
+        linux_android.vm.provision "check", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"#{VAGRANT_BUILD_FOLDER}\"
             ctest -C Release
         SHELL
 
-        linux_android.vm.provision "deploy", type: "shell", run: "never", inline: <<-SHELL
-            export ANDROID_NDK_r18b="$HOME/.android/android-ndk-r18b"
+        linux_android.vm.provision "deploy", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"#{VAGRANT_BUILD_FOLDER}\"
-            # TODO: cmake --build . --config Release --target package
+            cmake --build . --config Release --target aab_unsigned
         SHELL
     end
 
