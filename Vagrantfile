@@ -10,35 +10,36 @@ Vagrant.configure("2") do |config|
         linux.vm.box = "bento/ubuntu-18.04"
         linux.vm.box_check_update = false
 
-        linux.vm.provision "bootstrap", type: "shell", run: "once", inline: <<-SHELL
-            apt update
-            apt install -y build-essential gcc-8 g++-8 libfontconfig1 libgl1-mesa-dev mesa-common-dev
-            apt install -y libpulse0 libpulse-dev # Qt Multimedia
+        linux.vm.provision "bootstrap", type: "shell", privileged: false, run: "once", inline: <<-SHELL
+            sudo apt update
+            sudo apt install -y build-essential gcc-8 g++-8 libfontconfig1 libgl1-mesa-dev mesa-common-dev
+            sudo apt install -y libpulse0 libpulse-dev # Qt Multimedia
 
             echo "Installing latest CMake..."
-            wget -O /tmp/cmake.sh -q https://github.com/Kitware/CMake/releases/download/v3.16.2/cmake-3.16.2-Linux-x86_64.sh
-            sh /tmp/cmake.sh --prefix=/usr --skip-license
+            CMAKE_URL=https://github.com/Kitware/CMake/releases/download/v3.16.2/cmake-3.16.2-Linux-x86_64.sh
+            wget -O /tmp/cmake.sh -nv $CMAKE_URL
+            sudo sh /tmp/cmake.sh --prefix=/usr --skip-license
         SHELL
 
-        linux.vm.provision "configure", type: "shell", run: "never", inline: <<-SHELL
-            mkdir -p \"#{VAGRANT_BUILD_FOLDER}\" && cd \"#{VAGRANT_BUILD_FOLDER}\"
+        linux.vm.provision "configure", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cmake -DCMAKE_BUILD_TYPE=Release \
                   -DCMAKE_TOOLCHAIN_FILE=\"#{VAGRANT_SYNCED_FOLDER}\"/cmake/polly/gcc-8-cxx17.cmake \
                   -DQT5_DOWNLOAD_VERSION=5.14.0 \
-                  \"#{VAGRANT_SYNCED_FOLDER}\"
+                  -B \"#{VAGRANT_BUILD_FOLDER}\" \
+                  -S \"#{VAGRANT_SYNCED_FOLDER}\"
         SHELL
 
-        linux.vm.provision "build", type: "shell", run: "never", inline: <<-SHELL
+        linux.vm.provision "build", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"#{VAGRANT_BUILD_FOLDER}\"
             cmake --build . --config Release
         SHELL
 
-        linux.vm.provision "check", type: "shell", run: "never", inline: <<-SHELL
+        linux.vm.provision "check", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"#{VAGRANT_BUILD_FOLDER}\"
             ctest -C Release
         SHELL
 
-        linux.vm.provision "deploy", type: "shell", run: "never", inline: <<-SHELL
+        linux.vm.provision "deploy", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"#{VAGRANT_BUILD_FOLDER}\"
             # TODO: cmake --build . --config Release --target package
         SHELL
