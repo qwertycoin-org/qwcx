@@ -140,8 +140,8 @@ Vagrant.configure("2") do |config|
         win32.vm.provision "bootstrap", type: "shell", privileged: true, run: "once", inline: <<-SHELL
             choco upgrade -y chocolatey
 
-            choco install -y cmake
-            choco install -y git
+            choco install -y --no-progress cmake
+            choco install -y --no-progress git
             choco install -y visualstudio2019buildtools
             choco install -y visualstudio2019-workload-vctools --package-parameters "--includeRecommended"
             choco install -y --execution-timeout=0 visualstudio2019-workload-manageddesktop
@@ -187,8 +187,8 @@ Vagrant.configure("2") do |config|
         win64.vm.provision "bootstrap", type: "shell", privileged: true, run: "once", inline: <<-SHELL
             choco upgrade -y chocolatey
 
-            choco install -y cmake
-            choco install -y git
+            choco install -y --no-progress cmake
+            choco install -y --no-progress git
             choco install -y visualstudio2019buildtools
             choco install -y visualstudio2019-workload-vctools --package-parameters "--includeRecommended"
             choco install -y --execution-timeout=0 visualstudio2019-workload-manageddesktop
