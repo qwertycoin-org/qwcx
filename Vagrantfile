@@ -132,6 +132,53 @@ Vagrant.configure("2") do |config|
         SHELL
     end
 
+    config.vm.define "win32" do |win32|
+        win32.vm.hostname = "win32"
+        win32.vm.box = "gusztavvargadr/windows-10"
+        win32.vm.box_check_update = false
+
+        win32.vm.provision "bootstrap", type: "shell", privileged: true, run: "once", inline: <<-SHELL
+            choco upgrade -y chocolatey
+
+            choco install -y cmake
+            choco install -y git
+            choco install -y visualstudio2019buildtools
+            choco install -y visualstudio2019-workload-vctools --package-parameters "--includeRecommended"
+            choco install -y --execution-timeout=0 visualstudio2019-workload-manageddesktop
+
+            Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+            Install-Module -Name Pscx -MinimumVersion 3.2.2 -AllowClobber
+
+            Import-Module Pscx
+            Invoke-BatchFile "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Auxiliary\\Build\\vcvars32.bat"
+            $env:Path = "C:\\Program Files\\CMake\\bin;$env:Path"
+            [Environment]::SetEnvironmentVariable("Path", $env:Path, [System.EnvironmentVariableTarget]::Machine)
+        SHELL
+
+        win32.vm.provision "configure", type: "shell", privileged: false, run: "never", inline: <<-SHELL
+            cmake -DCMAKE_BUILD_TYPE=Release \
+                  -DCMAKE_TOOLCHAIN_FILE=\"C:#{VAGRANT_SYNCED_FOLDER}\"/cmake/polly/vs-16-2019-cxx17.cmake \
+                  -DQT5_DOWNLOAD_VERSION="5.14.1" \
+                  -B \"C:#{VAGRANT_BUILD_FOLDER}\" \
+                  -S \"C:#{VAGRANT_SYNCED_FOLDER}\"
+        SHELL
+
+        win32.vm.provision "build", type: "shell", privileged: false, run: "never", inline: <<-SHELL
+            cd \"C:#{VAGRANT_BUILD_FOLDER}\"
+            cmake --build . --config Release
+        SHELL
+
+        win32.vm.provision "check", type: "shell", privileged: false, run: "never", inline: <<-SHELL
+            cd \"C:#{VAGRANT_BUILD_FOLDER}\"
+            # TODO: ctest -C Release
+        SHELL
+
+        win32.vm.provision "deploy", type: "shell", privileged: false, run: "never", inline: <<-SHELL
+            cd \"C:#{VAGRANT_BUILD_FOLDER}\"
+            # TODO: cmake --build . --config Release --target package
+        SHELL
+    end
+
     config.vm.synced_folder ".", "#{VAGRANT_SYNCED_FOLDER}"
 
     config.vm.provider "virtualbox" do |v|
