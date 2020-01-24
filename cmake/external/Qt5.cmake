@@ -9,8 +9,6 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
-set(Qt5_COMPONENTS Core Gui Multimedia Network Qml Quick QuickCompiler QuickControls2 Svg Widgets)
-
 if(EXISTS "${Qt5_DIR}" AND IS_DIRECTORY "${Qt5_DIR}")
     message(STATUS "Qt5_DIR is set. Using precompiled Qt5.")
     message(STATUS "Qt5_DIR path: ${Qt5_DIR}")
@@ -21,6 +19,11 @@ else()
     message(STATUS "Qt5_DIR is not set. Trying to guess Qt5 path...")
 endif()
 
+if(NOT DEFINED Qt5_COMPONENTS)
+    # Default Qt5 modules
+    message(STATUS "Qt5_COMPONENTS is not set. Initializing with default value.")
+    set(Qt5_COMPONENTS Core Gui)
+endif()
 find_package(Qt5 REQUIRED COMPONENTS ${Qt5_COMPONENTS})
 
 if(TARGET Qt5::qmake)
@@ -33,7 +36,7 @@ if(TARGET Qt5::qmake)
     message(STATUS "QT_INSTALL_LIBS: ${QT_INSTALL_LIBS}")
     message(STATUS "QT_INSTALL_PLUGINS: ${QT_INSTALL_PLUGINS}")
 
-    if(ANDROID)
+    if(ANDROID AND EXISTS "${QT_INSTALL_BINS}/androiddeployqt")
         add_executable(Qt5::androiddeployqt IMPORTED)
 
         set_target_properties(
