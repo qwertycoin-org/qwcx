@@ -13,7 +13,5 @@
         <file>Pages/WalletRestorationPage.qml</file>
         <file>Pages/WelcomePage.qml</file>
         <file>main.qml</file>
-        <file>main_desktop.qml</file>
-        <file>main_mobile.qml</file>
     </qresource>
 </RCC>
