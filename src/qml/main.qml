@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
+import "./Pages" as Pages
 
 ApplicationWindow {
     id: root
@@ -15,48 +16,85 @@ ApplicationWindow {
     Material.accent: Material.color(Material.Amber, Material.Shade800)
     Material.primary: Material.background
 
-    ListModel {
-        id: pages
-        dynamicRoles: false
+    StackView {
+        id: stackView
+        anchors.fill: parent
+    }
 
-        ListElement {
-            iconName: "account_balance"
-            source: "qrc:/qml/Pages/BalancePage.qml"
-            title: qsTr("Balance")
-        }
+    Component {
+        id: mainView
 
-        ListElement {
-            iconName: "list_alt"
-            source: "qrc:/qml/Pages/TransactionHistoryPage.qml"
-            title: qsTr("History")
-        }
-
-        ListElement {
-            iconName: "people"
-            source: "qrc:/qml/Pages/RecipientsPage.qml"
-            title: qsTr("Recipients")
-        }
-
-        ListElement {
-            iconName: "build"
-            source: "qrc:/qml/Pages/SettingsPage.qml"
-            title: qsTr("Settings")
+        Pages.MainPage {
+            onActionChosen: {
+                if (action === "logout")
+                    stackView.replace(stackView.get(0, StackView.DontLoad), welcomeView, {}, StackView.PopTransition)
+            }
         }
     }
 
-    Loader {
-        id: loader
-        anchors.fill: parent
-        active: true
-        asynchronous: false
-        focus: true
-        visible: loader.status === Loader.Ready
+    Component {
+        id: walletCreationView
 
-        Component.onCompleted: {
-            // TODO: Select between desktop, mobile and web view.
-            var src = "qrc:/qml/main_mobile.qml"
-            var properties = { "model": pages }
-            loader.setSource(src, properties)
+        Pages.WalletCreationPage {
+            onActionChosen: {
+                switch (action) {
+                case "cancel":
+                    stackView.replace(this, welcomeView, {}, StackView.PopTransition)
+                    break
+                case "done":
+                    stackView.replace(this, mainView, {}, StackView.PushTransition)
+                    break
+                default:
+                    // unknown action, do nothing
+                    break
+                }
+            }
         }
+    }
+
+    Component {
+        id: walletRestorationView
+
+        Pages.WalletRestorationPage {
+            onActionChosen: {
+                switch (action) {
+                case "cancel":
+                    stackView.replace(this, welcomeView, {}, StackView.PopTransition)
+                    break
+                case "done":
+                    stackView.replace(this, mainView, {}, StackView.PushTransition)
+                    break
+                default:
+                    // unknown action, do nothing
+                    break
+                }
+            }
+        }
+    }
+
+    Component {
+        id: welcomeView
+
+        Pages.WelcomePage {
+            onActionChosen: {
+                switch (action) {
+                case "create":
+                    stackView.replace(this, walletCreationView, {}, StackView.PushTransition)
+                    break
+                case "restore":
+                    stackView.replace(this, walletRestorationView, {}, StackView.PushTransition)
+                    break
+                default:
+                    // unknown action, do nothing
+                    break
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        var authorized = false
+        var initialView = authorized ? mainView : welcomeView
+        stackView.push(initialView)
     }
 }
