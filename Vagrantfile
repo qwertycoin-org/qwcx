@@ -79,9 +79,21 @@ Vagrant.configure("2") do |config|
             yes | ./sdkmanager --update 2>&1 > /dev/null
             yes | ./sdkmanager --install "build-tools;28.0.3" 2>&1 > /dev/null
             yes | ./sdkmanager --install "ndk;21.0.6113669" 2>&1 > /dev/null
-            yes | ./sdkmanager --install "platforms;android-29" 2>&1 > /dev/null
+            yes | ./sdkmanager --install "platforms;android-28" 2>&1 > /dev/null
             yes | ./sdkmanager --install "platform-tools" "tools" 2>&1 > /dev/null
             export ANDROID_NDK="$ANDROID_SDK/ndk/21.0.6113669"
+            echo "Done.\n"
+
+            echo "Generating debug.keystore for Android"
+            keytool -genkey -v \
+                -keystore "$HOME/.android/debug.keystore" \
+                -alias androiddebugkey \
+                -storepass android \
+                -keypass android \
+                -keyalg RSA \
+                -keysize 2048 \
+                -validity 10000 \
+                -dname "CN=Android Debug,O=Android,C=US"
             echo "Done.\n"
 
             echo "Saving environment variables..."
@@ -100,16 +112,17 @@ Vagrant.configure("2") do |config|
             cmake -DCMAKE_BUILD_TYPE=Release \
                   -DCMAKE_FIND_ROOT_PATH=$QT_DIR \
                   -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
-                  -DANDROID_ABI:STRING=x86_64 \
+                  -DANDROID_ABI:STRING=x86 \
                   -DANDROID_BUILD_ABI_arm64-v8a:BOOL=ON \
                   -DANDROID_BUILD_ABI_armeabi-v7a:BOOL=ON \
                   -DANDROID_BUILD_ABI_x86:BOOL=ON \
-                  -DANDROID_BUILD_ABI_x86_64:BOOL=ON \
+                  -DANDROID_BUILD_ABI_x86_64:BOOL=OFF \
                   -DANDROID_NATIVE_API_LEVEL:STRING=21 \
                   -DANDROID_NDK=$ANDROID_NDK \
-                  -DANDROID_SDK=$ANDROID_SDK \
-                  -DANDROID_STL=c++_shared \
                   -DANDROID_PLATFORM=android-21 \
+                  -DANDROID_SDK=$ANDROID_SDK \
+                  -DANDROID_SDK_PLATFORM=android-21 \
+                  -DANDROID_STL=c++_shared \
                   -DANDROID_TOOLCHAIN=clang \
                   -DQT5_DOWNLOAD_VERSION=$QT_VERSION \
                   -B \"#{VAGRANT_BUILD_FOLDER}\" \
@@ -128,7 +141,7 @@ Vagrant.configure("2") do |config|
 
         linux_android.vm.provision "deploy", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"#{VAGRANT_BUILD_FOLDER}\"
-            cmake --build . --config Release --target aab_unsigned
+            cmake --build . --config Release --target apk
         SHELL
     end
 
