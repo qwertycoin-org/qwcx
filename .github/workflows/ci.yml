@@ -1,0 +1,50 @@
+name: "Build, Check & Deploy"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+  QT_VERSION: 5.14.1
+
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+          - {
+              name: "Android (Release, multiabi)",
+              os: "ubuntu-latest",
+          }
+          - {
+              name: "Linux (Release, 64-bit)",
+              os: "ubuntu-latest",
+          }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout Submodules
+        shell: bash
+        run: |
+          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+      - name: Install Dependencies
+        shell: bash
+        run: echo "deps"
+      - name: Configure
+        run: cmake --version
+      - name: Build
+        run: cmake --version
+      - name: Check
+        run: cmake --version
+      - name: Deploy
+        run: cmake --version
