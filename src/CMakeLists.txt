@@ -120,54 +120,62 @@ if(ANDROID) # Android
         # This generator expression shouldn't be used outside of custom target declarations!
         set(ANDROID_DEPLOY_QT "$<TARGET_FILE:Qt5::androiddeployqt>")
 
-        add_custom_target(apk_unsigned
-            COMMAND ${CMAKE_COMMAND} -E env JAVA_HOME=${JAVA_HOME}
-                ${ANDROID_DEPLOY_QT}
-                --input "${CMAKE_BINARY_DIR}/android_deployment_settings.json"
-                --output "${CMAKE_BINARY_DIR}/android-build"
-                --apk "${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.apk"
-                ${android_deploy_qt_platform}
-                ${android_deploy_qt_jdk}
-                --deployment bundled
-                --gradle
-                --release
-            VERBATIM
-        )
-
-        add_custom_target(aab_unsigned
-            COMMAND ${CMAKE_COMMAND} -E env JAVA_HOME=${JAVA_HOME}
-                ${ANDROID_DEPLOY_QT}
-                --input "${CMAKE_BINARY_DIR}/android_deployment_settings.json"
-                --output "${CMAKE_BINARY_DIR}/android-build"
-                --apk "${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.apk"
-                ${android_deploy_qt_platform}
-                ${android_deploy_qt_jdk}
-                --deployment bundled
-                --gradle
-                --release
-                --aab
-            COMMAND ${CMAKE_COMMAND} -E copy
-                "${CMAKE_BINARY_DIR}/android-build/build/outputs/bundle/release/android-build-release.aab"
-                "${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.aab"
-            VERBATIM
-        )
-
-#        add_custom_target(aab2apks_unsigned
+#        add_custom_target(apk_unsigned
 #            COMMAND ${CMAKE_COMMAND} -E env JAVA_HOME=${JAVA_HOME}
-#                ${JAVA_HOME}/bin/java
-#                -jar ${ANDROID_BUNDLETOOL_JAR}
-#                build-apks
-#                --bundle=${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.aab
-#                --output=${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.apks
-#                --mode=universal
+#                ${ANDROID_DEPLOY_QT}
+#                --input "${CMAKE_BINARY_DIR}/android_deployment_settings.json"
+#                --output "${CMAKE_BINARY_DIR}/android-build"
+#                --apk "${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.apk"
+#                --release
+#                ${android_deploy_qt_platform}
+#                ${android_deploy_qt_jdk}
 #            VERBATIM
 #        )
+
+#        add_custom_target(aab_unsigned
+#            COMMAND ${CMAKE_COMMAND} -E env JAVA_HOME=${JAVA_HOME}
+#                ${ANDROID_DEPLOY_QT}
+#                --input "${CMAKE_BINARY_DIR}/android_deployment_settings.json"
+#                --output "${CMAKE_BINARY_DIR}/android-build"
+#                --apk "${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.apk"
+#                --aab
+#                --release
+#                ${android_deploy_qt_platform}
+#                ${android_deploy_qt_jdk}
+#            COMMAND ${CMAKE_COMMAND} -E copy
+#                "${CMAKE_BINARY_DIR}/android-build/build/outputs/bundle/release/android-build-release.aab"
+#                "${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.aab"
+#            VERBATIM
+#        )
+
+        set(ANDROID_APK_IN "${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.apk")
+        set(ANDROID_APK_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_NAME}-v${PROJECT_VERSION}.apk")
+        set(ANDROID_AAB_IN "${CMAKE_BINARY_DIR}/android-build/build/outputs/bundle/debug/android-build-debug.aab")
+        set(ANDROID_AAB_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_NAME}-v${PROJECT_VERSION}.aab")
+        add_custom_target(
+            package
+            DEPENDS aab
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/dist"
+            COMMAND ${CMAKE_COMMAND} -E copy "${ANDROID_APK_IN}" "${ANDROID_APK_OUT}"
+            COMMAND ${CMAKE_COMMAND} -E copy "${ANDROID_AAB_IN}" "${ANDROID_AAB_OUT}"
+            VERBATIM
+        )
+        unset(ANDROID_APK_IN)
+        unset(ANDROID_APK_OUT)
+        unset(ANDROID_AAB_IN)
+        unset(ANDROID_AAB_OUT)
     endif()
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux") # Linux
     set_target_properties(
         ${TARGET_NAME}
         PROPERTIES
         OUTPUT_NAME "${QWCX_TARGET_NAME_LOWERCASE}"
+    )
+
+    add_custom_target(
+        package
+        COMMAND ${CMAKE_COMMAND} -E echo ""
+        VERBATIM
     )
 elseif(APPLE) # macOS
     set(MACOSX_BUNDLE_ICON_FILE_NAME "icon.icns")
