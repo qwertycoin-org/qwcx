@@ -89,7 +89,7 @@ Vagrant.configure("2") do |config|
 
         linux_android.vm.provision "deploy", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"#{VAGRANT_BUILD_FOLDER}\"
-            cmake --build . --config Release --target apk
+            cmake --build . --config Release --target package
         SHELL
     end
 
