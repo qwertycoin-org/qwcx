@@ -76,6 +76,15 @@ jobs:
           git_args="-c protocol.version=2 submodule update --init --force --recursive --depth=1"
           git submodule sync --recursive
           git -c "http.extraheader=$auth_header" $git_args
+      - name: Initialize Metadata
+        id: metadata
+        shell: cmake -P {0}
+        run: |
+          include(cmake/qwcx/Credentials.cmake)
+          set(PACKAGE_NAME "${PROJECT_NAME}-v${PROJECT_VERSION}-unknown")
+          message("::set-output name=project_name::${PROJECT_NAME}")
+          message("::set-output name=project_version::${PROJECT_VERSION}")
+          message("::set-output name=project_package_name::${PACKAGE_NAME}")
       - name: Bootstrap (Install Dependencies)
         shell: bash
         run: ${{ matrix.config.commands.bootstrap }}
@@ -90,3 +99,9 @@ jobs:
       - name: Deploy
         run: ${{ matrix.config.commands.deploy }}
         working-directory: ./build
+      - name: Upload Artifacts
+        if: success()
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ steps.metadata.outputs.project_package_name }}
+          path: ./build/dist
