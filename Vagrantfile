@@ -59,6 +59,7 @@ Vagrant.configure("2") do |config|
 
             cmake -DCMAKE_BUILD_TYPE=Release \
                   -DCMAKE_FIND_ROOT_PATH=$QT_DIR \
+                  -DCMAKE_PROGRAM_PATH=$QT_DIR/bin \
                   -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
                   -DANDROID_ABI:STRING=x86 \
                   -DANDROID_BUILD_ABI_arm64-v8a:BOOL=ON \
