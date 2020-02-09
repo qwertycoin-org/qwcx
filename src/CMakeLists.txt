@@ -176,7 +176,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux") # Linux
 
     add_custom_target(
         package
-        COMMAND ${CMAKE_COMMAND} -E echo ""
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/dist"
         VERBATIM
     )
 elseif(APPLE) # macOS
