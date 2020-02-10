@@ -149,9 +149,9 @@ if(ANDROID) # Android
 #        )
 
         set(ANDROID_APK_IN "${CMAKE_BINARY_DIR}/android-build/${PROJECT_NAME}.apk")
-        set(ANDROID_APK_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_NAME}-v${PROJECT_VERSION}.apk")
+        set(ANDROID_APK_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_PACKAGE_FILE_NAME}.apk")
         set(ANDROID_AAB_IN "${CMAKE_BINARY_DIR}/android-build/build/outputs/bundle/debug/android-build-debug.aab")
-        set(ANDROID_AAB_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_NAME}-v${PROJECT_VERSION}.aab")
+        set(ANDROID_AAB_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_PACKAGE_FILE_NAME}.aab")
         set(ANDROID_PACKAGE_DEPENDENCIES aab)
         add_custom_target(
             package
