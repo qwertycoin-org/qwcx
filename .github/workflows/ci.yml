@@ -76,15 +76,6 @@ jobs:
           git_args="-c protocol.version=2 submodule update --init --force --recursive --depth=1"
           git submodule sync --recursive
           git -c "http.extraheader=$auth_header" $git_args
-      - name: Initialize Metadata
-        id: metadata
-        shell: cmake -P {0}
-        run: |
-          include(cmake/qwcx/Credentials.cmake)
-          set(PACKAGE_NAME "${PROJECT_NAME}-v${PROJECT_VERSION}-unknown")
-          message("::set-output name=project_name::${PROJECT_NAME}")
-          message("::set-output name=project_version::${PROJECT_VERSION}")
-          message("::set-output name=project_package_name::${PACKAGE_NAME}")
       - name: Bootstrap (Install Dependencies)
         shell: bash
         run: ${{ matrix.config.commands.bootstrap }}
@@ -96,12 +87,22 @@ jobs:
       - name: Check
         run: ${{ matrix.config.commands.check }}
         working-directory: ./build
-      - name: Deploy
+      - name: Deploy (create package)
         run: ${{ matrix.config.commands.deploy }}
+        working-directory: ./build
+      - name: Read Metadata
+        id: metadata
+        shell: cmake -P {0}
+        run: |
+          include("./cmake_project.cmake")
+          message("::set-output name=project_name::${PROJECT_NAME}")
+          message("::set-output name=project_version::${PROJECT_VERSION}")
+          message("::set-output name=project_os_name::${PROJECT_OS_NAME}")
+          message("::set-output name=project_package_file_name::${PROJECT_PACKAGE_FILE_NAME}")
         working-directory: ./build
       - name: Upload Artifacts
         if: success()
         uses: actions/upload-artifact@v1
         with:
-          name: ${{ steps.metadata.outputs.project_package_name }}
+          name: ${{ steps.metadata.outputs.project_package_file_name }}
           path: ./build/dist
