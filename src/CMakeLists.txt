@@ -152,7 +152,7 @@ if(ANDROID) # Android
         set(ANDROID_APK_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_PACKAGE_FILE_NAME}.apk")
         set(ANDROID_AAB_IN "${CMAKE_BINARY_DIR}/android-build/build/outputs/bundle/debug/android-build-debug.aab")
         set(ANDROID_AAB_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_PACKAGE_FILE_NAME}.aab")
-        set(ANDROID_PACKAGE_DEPENDENCIES aab)
+        set(ANDROID_PACKAGE_DEPENDENCIES ${TARGET_NAME} aab)
         add_custom_target(
             package
             DEPENDS ${ANDROID_PACKAGE_DEPENDENCIES}
@@ -176,6 +176,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux") # Linux
 
     add_custom_target(
         package
+        DEPENDS ${TARGET_NAME}
         COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/dist"
         VERBATIM
     )
