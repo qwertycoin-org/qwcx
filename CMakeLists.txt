@@ -12,7 +12,10 @@ include(qwcx/Platform) # Initialize host and target platform variables
 include(qwcx/Dependencies) # Initialize external dependencies
 
 # The name of the distribution package file, not including the extension.
-set(PROJECT_PACKAGE_FILE_NAME "${PROJECT_NAME}-v${PROJECT_VERSION}-${PROJECT_OS_NAME}")
+set(PROJECT_PACKAGE_FILE_NAME "${PROJECT_NAME}")
+string(APPEND PROJECT_PACKAGE_FILE_NAME "-v${PROJECT_VERSION}")
+string(APPEND PROJECT_PACKAGE_FILE_NAME "-${PROJECT_OS_NAME}")
+string(APPEND PROJECT_PACKAGE_FILE_NAME "-${PROJECT_ARCH_NAME}")
 
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/src")
