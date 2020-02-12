@@ -94,7 +94,7 @@ set_property(
     QWCX_ORGANIZATION_NAME=\"${QWCX_TARGET_VENDOR_NAME}\"
 )
 
-if(ANDROID) # Android
+if(PROJECT_OS_ANDROID)
     set_target_properties(
         ${TARGET_NAME}
         PROPERTIES
@@ -167,7 +167,7 @@ if(ANDROID) # Android
         unset(ANDROID_AAB_OUT)
         unset(ANDROID_PACKAGE_DEPENDENCIES)
     endif()
-elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux") # Linux
+elseif(PROJECT_OS_LINUX OR PROJECT_OS_POSIX)
     set_target_properties(
         ${TARGET_NAME}
         PROPERTIES
@@ -180,7 +180,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux") # Linux
         COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/dist"
         VERBATIM
     )
-elseif(APPLE) # macOS
+elseif(PROJECT_OS_MACOS)
     set(MACOSX_BUNDLE_ICON_FILE_NAME "icon.icns")
 
     set_target_properties(
@@ -214,7 +214,7 @@ elseif(APPLE) # macOS
     )
     unset(ICON_IN)
     unset(ICON_OUT)
-elseif(WIN32) # Windows
+elseif(PROJECT_OS_WINDOWS) # Windows
     set_target_properties(
         ${TARGET_NAME}
         PROPERTIES
