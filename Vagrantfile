@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
 
         linux.vm.provision "deploy", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"#{VAGRANT_BUILD_FOLDER}\"
-            # TODO: cmake --build . --config Release --target package
+            cmake --build . --config Release --target package
         SHELL
     end
 
