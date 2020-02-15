@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=@QWCX_TARGET_DISPLAY_NAME@
+GenericName="Cryptocurrency Wallet"
+Comment="Easy cryptocurrency management (Qwertycoin)"
+Icon=@QWCX_TARGET_NAME_LOWERCASE@
+Exec=@QWCX_TARGET_NAME_LOWERCASE@
+Terminal=false
+Categories=Network;P2P;Office;Finance;Qt;
