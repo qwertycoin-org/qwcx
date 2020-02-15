@@ -209,7 +209,7 @@ elseif(PROJECT_OS_LINUX OR PROJECT_OS_POSIX)
     unset(ICON_IN)
     unset(ICON_OUT)
 
-    set(APPIMAGE_IN "${CMAKE_CURRENT_BINARY_DIR}/${QWCX_TARGET_DISPLAY_NAME}-x86_64.AppImage")
+    set(APPIMAGE_IN "${CMAKE_CURRENT_BINARY_DIR}/${QWCX_TARGET_DISPLAY_NAME}-*.AppImage")
     set(APPIMAGE_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_PACKAGE_FILE_NAME}.AppImage")
     add_custom_target(
         package

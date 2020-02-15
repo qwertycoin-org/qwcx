@@ -20,7 +20,7 @@ jobs:
         config:
           - {
               name: "Android (Release, multiabi)",
-              os: "ubuntu-latest",
+              os: "ubuntu-16.04",
               commands: {
                 bootstrap: bash scripts/ci/linux_android.sh,
                 configure: 'cmake
@@ -50,12 +50,12 @@ jobs:
           }
           - {
               name: "Linux (Release, 64-bit)",
-              os: "ubuntu-latest",
+              os: "ubuntu-16.04",
               commands: {
                 bootstrap: bash scripts/ci/linux.sh,
                 configure: 'cmake
                   -DCMAKE_BUILD_TYPE=Release
-                  -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/cmake/polly/gcc-8-cxx17.cmake
+                  -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/cmake/polly/gcc-5-cxx14-c11.cmake
                   -DQT5_DOWNLOAD_VERSION=$QT_VERSION
                   -B $GITHUB_WORKSPACE/build
                   -S $GITHUB_WORKSPACE',
