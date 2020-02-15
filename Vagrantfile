@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "linux" do |linux|
         linux.vm.hostname = "linux"
-        linux.vm.box = "bento/ubuntu-18.04"
+        linux.vm.box = "bento/ubuntu-16.04"
         linux.vm.box_check_update = false
 
         linux.vm.provision "bootstrap",
@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
 
         linux.vm.provision "configure", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cmake -DCMAKE_BUILD_TYPE=Release \
-                  -DCMAKE_TOOLCHAIN_FILE=\"#{VAGRANT_SYNCED_FOLDER}\"/cmake/polly/gcc-8-cxx17.cmake \
+                  -DCMAKE_TOOLCHAIN_FILE=\"#{VAGRANT_SYNCED_FOLDER}\"/cmake/polly/gcc-5-cxx14-c11.cmake \
                   -DQT5_DOWNLOAD_VERSION=5.14.0 \
                   -B \"#{VAGRANT_BUILD_FOLDER}\" \
                   -S \"#{VAGRANT_SYNCED_FOLDER}\"
@@ -42,7 +42,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "linux_android" do |linux_android|
         linux_android.vm.hostname = "linux-android"
-        linux_android.vm.box = "bento/ubuntu-18.04"
+        linux_android.vm.box = "bento/ubuntu-16.04"
         linux_android.vm.box_check_update = false
 
         linux_android.vm.provision "bootstrap",
