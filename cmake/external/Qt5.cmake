@@ -36,7 +36,7 @@ if(TARGET Qt5::qmake)
     message(STATUS "QT_INSTALL_LIBS: ${QT_INSTALL_LIBS}")
     message(STATUS "QT_INSTALL_PLUGINS: ${QT_INSTALL_PLUGINS}")
 
-    if(ANDROID AND EXISTS "${QT_INSTALL_BINS}/androiddeployqt")
+    if(EXISTS "${QT_INSTALL_BINS}/androiddeployqt")
         add_executable(Qt5::androiddeployqt IMPORTED)
 
         set_target_properties(
@@ -46,7 +46,18 @@ if(TARGET Qt5::qmake)
         set(Qt5_androiddeployqt_FOUND TRUE)
 
         message(STATUS "Found androiddeployqt ${QT_INSTALL_BINS}/androiddeployqt")
-    elseif(APPLE AND EXISTS "${QT_INSTALL_BINS}/macdeployqt")
+    elseif(EXISTS "${QT_INSTALL_BINS}/linuxdeployqt")
+        # Custom tool. More info at https://github.com/probonopd/linuxdeployqt
+        add_executable(Qt5::linuxdeployqt IMPORTED)
+
+        set_target_properties(
+            Qt5::linuxdeployqt
+            PROPERTIES IMPORTED_LOCATION "${QT_INSTALL_BINS}/linuxdeployqt"
+        )
+        set(Qt5_linuxdeployqt_FOUND TRUE)
+
+        message(STATUS "Found linuxdeployqt ${QT_INSTALL_BINS}/linuxdeployqt")
+    elseif(EXISTS "${QT_INSTALL_BINS}/macdeployqt")
         add_executable(Qt5::macdeployqt IMPORTED)
 
         set_target_properties(
@@ -56,7 +67,7 @@ if(TARGET Qt5::qmake)
         set(Qt5_macdeployqt_FOUND TRUE)
 
         message(STATUS "Found macdeployqt ${QT_INSTALL_BINS}/macdeployqt")
-    elseif(WIN32)
+    elseif(EXISTS "${QT_INSTALL_BINS}/windeployqt.exe")
         add_executable(Qt5::windeployqt IMPORTED)
 
         set_target_properties(
