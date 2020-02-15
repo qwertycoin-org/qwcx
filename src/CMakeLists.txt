@@ -209,7 +209,7 @@ elseif(PROJECT_OS_LINUX OR PROJECT_OS_POSIX)
     unset(ICON_IN)
     unset(ICON_OUT)
 
-    set(APPIMAGE_IN "${CMAKE_CURRENT_BINARY_DIR}/${QWCX_TARGET_DISPLAY_NAME}-*.AppImage")
+    set(APPIMAGE_IN_REGEXP "QWCX-*.AppImage")
     set(APPIMAGE_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_PACKAGE_FILE_NAME}.AppImage")
     add_custom_target(
         package
@@ -225,11 +225,15 @@ elseif(PROJECT_OS_LINUX OR PROJECT_OS_POSIX)
             -qmlimport=${QT_INSTALL_BINS}/../qml
         COMMAND ${CMAKE_COMMAND} -E echo "Copied *.AppImage file to 'dist' directory."
         COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/dist"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${APPIMAGE_IN} ${APPIMAGE_OUT}
+        COMMAND ${CMAKE_COMMAND} -E env Qt5_DIR=${Qt5_DIR}
+            find ${CMAKE_CURRENT_BINARY_DIR}
+            -type f
+            -iname "${APPIMAGE_IN_REGEXP}"
+            -exec mv {} ${APPIMAGE_OUT} \;
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         VERBATIM
     )
-    unset(APPIMAGE_IN)
+    unset(APPIMAGE_IN_REGEXP)
     unset(APPIMAGE_OUT)
 elseif(PROJECT_OS_MACOS)
     set(MACOSX_BUNDLE_ICON_FILE_NAME "icon.icns")
