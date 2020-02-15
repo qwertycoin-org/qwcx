@@ -168,18 +168,69 @@ if(PROJECT_OS_ANDROID)
         unset(ANDROID_PACKAGE_DEPENDENCIES)
     endif()
 elseif(PROJECT_OS_LINUX OR PROJECT_OS_POSIX)
+    set(LINUX_APPDIR "${CMAKE_CURRENT_BINARY_DIR}/AppDir")
+
     set_target_properties(
         ${TARGET_NAME}
         PROPERTIES
         OUTPUT_NAME "${QWCX_TARGET_NAME_LOWERCASE}"
+        RUNTIME_OUTPUT_DIRECTORY "AppDir/usr/bin"
     )
 
+    set(DESKTOP_ENTRY_IN "${CMAKE_CURRENT_BINARY_DIR}/${QWCX_TARGET_NAME_LOWERCASE}.desktop")
+    set(DESKTOP_ENTRY_OUT "${LINUX_APPDIR}/usr/share/applications/${QWCX_TARGET_NAME_LOWERCASE}.desktop")
+    set(ICON_IN "${CMAKE_CURRENT_LIST_DIR}/resources/platforms/linux/icon.png")
+    set(ICON_OUT "${LINUX_APPDIR}/usr/share/icons/hicolor/256x256/apps/${QWCX_TARGET_NAME_LOWERCASE}.png")
+    configure_file(
+        "${CMAKE_CURRENT_LIST_DIR}/resources/platforms/linux/spec.desktop.in"
+        "${DESKTOP_ENTRY_IN}"
+        @ONLY
+        NEWLINE_STYLE UNIX
+    )
+    add_custom_command(
+        TARGET ${TARGET_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E echo "Created 'lib' directory."
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${LINUX_APPDIR}/usr/lib"
+        COMMAND ${CMAKE_COMMAND} -E echo "Created 'plugins' directory."
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${LINUX_APPDIR}/usr/plugins"
+        COMMAND ${CMAKE_COMMAND} -E echo "Created 'share' directory."
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${LINUX_APPDIR}/usr/share"
+        COMMAND ${CMAKE_COMMAND} -E echo "Created desktop entry in 'share/applications' directory."
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${LINUX_APPDIR}/usr/share/applications"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${DESKTOP_ENTRY_IN} ${DESKTOP_ENTRY_OUT}
+        COMMAND ${CMAKE_COMMAND} -E echo "Copied app icon to 'share/icon/...' directory."
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${LINUX_APPDIR}/usr/share/icons/hicolor/256x256/apps"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${ICON_IN} ${ICON_OUT}
+        COMMENT "Creating/updating application AppDir contents"
+    )
+    unset(DESKTOP_ENTRY_IN)
+    unset(DESKTOP_ENTRY_OUT)
+    unset(ICON_IN)
+    unset(ICON_OUT)
+
+    set(APPIMAGE_IN "${CMAKE_CURRENT_BINARY_DIR}/${QWCX_TARGET_DISPLAY_NAME}-x86_64.AppImage")
+    set(APPIMAGE_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_PACKAGE_FILE_NAME}.AppImage")
     add_custom_target(
         package
         DEPENDS ${TARGET_NAME}
+        COMMAND ${CMAKE_COMMAND} -E env Qt5_DIR=${Qt5_DIR}
+            ${QT_INSTALL_BINS}/linuxdeployqt
+            ${LINUX_APPDIR}/usr/share/applications/${QWCX_TARGET_NAME_LOWERCASE}.desktop
+            -always-overwrite
+            -appimage
+            -no-copy-copyright-files
+            -qmake=${QT_INSTALL_BINS}/qmake
+            -qmldir=${CMAKE_CURRENT_SOURCE_DIR}/qml
+            -qmlimport=${QT_INSTALL_BINS}/../qml
+        COMMAND ${CMAKE_COMMAND} -E echo "Copied *.AppImage file to 'dist' directory."
         COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/dist"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${APPIMAGE_IN} ${APPIMAGE_OUT}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         VERBATIM
     )
+    unset(APPIMAGE_IN)
+    unset(APPIMAGE_OUT)
 elseif(PROJECT_OS_MACOS)
     set(MACOSX_BUNDLE_ICON_FILE_NAME "icon.icns")
 
