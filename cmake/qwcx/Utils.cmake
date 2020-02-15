@@ -106,12 +106,31 @@ function(install_qt5)
             )
             message(STATUS "Package \"${package}\" saved to ${package_local_file}")
         else()
-            message(STATUS "Package \"${package}\" is already downloaded: ${package_local_file}")
+            message(STATUS "Package \"${package}\" already exists: ${package_local_file}")
         endif()
 
         unset(package_url)
         unset(package_local_file)
     endforeach()
+
+    # Download custom deployment tool when targeting Linux platform
+    if("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
+        set(LINUXDEPLOYQT_URL "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage")
+        set(LINUXDEPLOYQT_LOCAL_FILE "${QT5_INSTALL_PREFIX}/tmp/linuxdeployqt")
+
+        if(NOT EXISTS "${LINUXDEPLOYQT_LOCAL_FILE}")
+            message(STATUS "Downloading \"linuxdeployqt\" tool: ${LINUXDEPLOYQT_URL}")
+            file(DOWNLOAD "${LINUXDEPLOYQT_URL}" "${LINUXDEPLOYQT_LOCAL_FILE}" SHOW_PROGRESS)
+            file(
+                COPY "${LINUXDEPLOYQT_LOCAL_FILE}"
+                DESTINATION "${QT5_INSTALL_PREFIX}/${QT5_DIR_PREFIX}/bin"
+                FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
+            )
+            message(STATUS "Tool \"linuxdeployqt\" saved to ${LINUXDEPLOYQT_LOCAL_FILE}")
+        else()
+            message(STATUS "Tool \"linuxdeployqt\" already exists: ${LINUXDEPLOYQT_LOCAL_FILE}")
+        endif()
+    endif()
 
     file(READ "${QT5_INSTALL_PREFIX}/${QT5_DIR_PREFIX}/mkspecs/qconfig.pri" qtconfig)
     string(REPLACE "Enterprise" "OpenSource" qtconfig "${qtconfig}")
