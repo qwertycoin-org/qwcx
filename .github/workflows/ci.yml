@@ -104,5 +104,5 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v1
         with:
-          name: ${{ steps.metadata.outputs.project_package_file_name }}
+          name: QWCX-${{ github.sha }}-${{ github.run_id }}
           path: ./build/dist
