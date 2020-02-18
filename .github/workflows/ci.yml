@@ -9,6 +9,7 @@ on:
       - master
 
 env:
+  PROJECT_BUILD_DIR: "/tmp/build_folder"
   QT_VERSION: 5.15.0
 
 jobs:
@@ -25,8 +26,8 @@ jobs:
                 bootstrap: bash scripts/ci/linux_android.sh,
                 configure: 'cmake
                   -DCMAKE_BUILD_TYPE=Release
-                  -DCMAKE_FIND_ROOT_PATH=$GITHUB_WORKSPACE/build/Qt5/$QT_VERSION/android
-                  -DCMAKE_PROGRAM_PATH=$GITHUB_WORKSPACE/build/Qt5/$QT_VERSION/android/bin
+                  -DCMAKE_FIND_ROOT_PATH=$PROJECT_BUILD_DIR/Qt5/$QT_VERSION/android
+                  -DCMAKE_PROGRAM_PATH=$PROJECT_BUILD_DIR/Qt5/$QT_VERSION/android/bin
                   -DCMAKE_TOOLCHAIN_FILE=$HOME/.android/sdk/ndk/21.0.6113669/build/cmake/android.toolchain.cmake
                   -DANDROID_ABI:STRING=x86
                   -DANDROID_BUILD_ABI_arm64-v8a:BOOL=ON
@@ -41,7 +42,7 @@ jobs:
                   -DANDROID_STL=c++_shared
                   -DANDROID_TOOLCHAIN=clang
                   -DQT5_DOWNLOAD_VERSION=$QT_VERSION
-                  -B $GITHUB_WORKSPACE/build
+                  -B $PROJECT_BUILD_DIR
                   -S $GITHUB_WORKSPACE',
                 build: cmake --build . --config Release --target all,
                 check: ctest -C Release,
@@ -57,7 +58,7 @@ jobs:
                   -DCMAKE_BUILD_TYPE=Release
                   -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/cmake/polly/gcc-5-cxx14-c11.cmake
                   -DQT5_DOWNLOAD_VERSION=$QT_VERSION
-                  -B $GITHUB_WORKSPACE/build
+                  -B $PROJECT_BUILD_DIR
                   -S $GITHUB_WORKSPACE',
                 build: cmake --build . --config Release --target all,
                 check: ctest -C Release,
@@ -85,21 +86,19 @@ jobs:
       - name: Build
         shell: bash
         run: ${{ matrix.config.commands.build }}
-        working-directory: ./build
+        working-directory: ${{ env.PROJECT_BUILD_DIR }}
       - name: Check
-        shell: bash
         run: ${{ matrix.config.commands.check }}
-        working-directory: ./build
+        working-directory: ${{ env.PROJECT_BUILD_DIR }}
       - name: Deploy (create package)
-        shell: bash
         run: ${{ matrix.config.commands.deploy }}
-        working-directory: ./build
+        working-directory: ${{ env.PROJECT_BUILD_DIR }}
       - name: Upload Artifacts
         if: success()
         uses: actions/upload-artifact@v1
         with:
           name: QWCX-${{ github.sha }}-${{ github.run_id }}
-          path: ./build/dist
+          path: ${{ env.PROJECT_BUILD_DIR }}/dist
   publish:
     name: Write Release Draft
     runs-on: ubuntu-latest
@@ -146,6 +145,7 @@ jobs:
           import glob
           import os
           import subprocess
+          import time
           assets = glob.glob("./artifacts_compressed/QWCX-*.zip")
           for asset in assets:
               filepath = asset
@@ -159,3 +159,4 @@ jobs:
               ]
               response = subprocess.check_output(curl_cmd)
               print(response)
+              time.sleep(5)
