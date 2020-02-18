@@ -80,14 +80,18 @@ jobs:
         shell: bash
         run: ${{ matrix.config.commands.bootstrap }}
       - name: Configure
+        shell: bash
         run: ${{ matrix.config.commands.configure }}
       - name: Build
+        shell: bash
         run: ${{ matrix.config.commands.build }}
         working-directory: ./build
       - name: Check
+        shell: bash
         run: ${{ matrix.config.commands.check }}
         working-directory: ./build
       - name: Deploy (create package)
+        shell: bash
         run: ${{ matrix.config.commands.deploy }}
         working-directory: ./build
       - name: Upload Artifacts
