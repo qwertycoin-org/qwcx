@@ -9,7 +9,7 @@ on:
       - master
 
 env:
-  QT_VERSION: 5.14.1
+  QT_VERSION: 5.15.0
 
 jobs:
   build:

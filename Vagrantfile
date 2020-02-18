@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
         linux.vm.provision "configure", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cmake -DCMAKE_BUILD_TYPE=Release \
                   -DCMAKE_TOOLCHAIN_FILE=\"#{VAGRANT_SYNCED_FOLDER}\"/cmake/polly/gcc-5-cxx14-c11.cmake \
-                  -DQT5_DOWNLOAD_VERSION=5.14.0 \
+                  -DQT5_DOWNLOAD_VERSION=5.15.0 \
                   -B \"#{VAGRANT_BUILD_FOLDER}\" \
                   -S \"#{VAGRANT_SYNCED_FOLDER}\"
         SHELL
@@ -52,7 +52,7 @@ Vagrant.configure("2") do |config|
             path: "scripts/ci/linux_android.sh"
 
         linux_android.vm.provision "configure", type: "shell", privileged: false, run: "never", inline: <<-SHELL
-            QT_VERSION=5.14.1
+            QT_VERSION=5.15.0
             QT_DIR="\"#{VAGRANT_BUILD_FOLDER}\"/Qt5/$QT_VERSION/android"
 
             export PATH="$QT_DIR/bin:$PATH"
