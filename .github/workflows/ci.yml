@@ -4,9 +4,8 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
+    tags:
+      - "v*"
 
 env:
   PROJECT_BUILD_DIR: "/tmp/build_folder"
