@@ -5,7 +5,7 @@ on:
     branches:
       - master
     tags:
-      - "v*"
+      - 'v*'
 
 env:
   PROJECT_BUILD_DIR: "/tmp/build_folder"
@@ -97,8 +97,9 @@ jobs:
           path: ${{ env.PROJECT_BUILD_DIR }}/dist
   publish:
     name: Write Release Draft
-    runs-on: ubuntu-latest
+    if: contains(github.ref, 'tags/v')
     needs: build
+    runs-on: ubuntu-latest
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v1
@@ -116,9 +117,9 @@ jobs:
         env:
           COMMIT_SHA: ${{ github.sha }}
         run: |
-          echo "::set-output name=tag_name::${COMMIT_SHA::8}"
-          echo "::set-output name=release_name::Nightly Build (${COMMIT_SHA::8})"
-          echo "::set-output name=body::Nightly build ${COMMIT_SHA::8}."
+          echo "::set-output name=tag_name::${{ github.ref }}"
+          echo "::set-output name=release_name::Release ${{ github.ref }}"
+          echo "::set-output name=body::Commit ${COMMIT_SHA::8}."
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1.0.1
