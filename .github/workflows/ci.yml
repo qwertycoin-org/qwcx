@@ -19,7 +19,7 @@ jobs:
       matrix:
         config:
           - {
-              name: "Android (Release, multiabi)",
+              name: "Android (multiabi)",
               os: "ubuntu-16.04",
               commands: {
                 bootstrap: bash scripts/ci/linux_android.sh,
@@ -49,7 +49,7 @@ jobs:
               }
           }
           - {
-              name: "Linux (Release, 64-bit)",
+              name: "Linux (64-bit)",
               os: "ubuntu-16.04",
               commands: {
                 bootstrap: bash scripts/ci/linux.sh,
