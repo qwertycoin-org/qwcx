@@ -21,7 +21,6 @@ jobs:
           - {
               name: "Android (Release, multiabi)",
               os: "ubuntu-16.04",
-              shell: "bash",
               commands: {
                 bootstrap: bash scripts/ci/linux_android.sh,
                 configure: 'cmake
@@ -52,7 +51,6 @@ jobs:
           - {
               name: "Linux (Release, 64-bit)",
               os: "ubuntu-16.04",
-              shell: "bash",
               commands: {
                 bootstrap: bash scripts/ci/linux.sh,
                 configure: 'cmake
@@ -79,21 +77,16 @@ jobs:
           git submodule sync --recursive
           git -c "http.extraheader=$auth_header" $git_args
       - name: Bootstrap (Install Dependencies)
-        shell: ${{ matrix.config.shell }}
         run: ${{ matrix.config.commands.bootstrap }}
       - name: Configure
-        shell: ${{ matrix.config.shell }}
         run: ${{ matrix.config.commands.configure }}
       - name: Build
-        shell: ${{ matrix.config.shell }}
         run: ${{ matrix.config.commands.build }}
         working-directory: ${{ env.PROJECT_BUILD_DIR }}
       - name: Check
-        shell: ${{ matrix.config.shell }}
         run: ${{ matrix.config.commands.check }}
         working-directory: ${{ env.PROJECT_BUILD_DIR }}
       - name: Deploy (create package)
-        shell: ${{ matrix.config.shell }}
         run: ${{ matrix.config.commands.deploy }}
         working-directory: ${{ env.PROJECT_BUILD_DIR }}
       - name: Upload Artifacts
