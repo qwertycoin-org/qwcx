@@ -20,6 +20,12 @@ string(APPEND PROJECT_PACKAGE_FILE_NAME "-${PROJECT_ARCH_NAME}")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/src")
 
+if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/dist")
+    file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/dist")
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/dist/changelog-${PROJECT_VERSION}.md" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/dist")
+    file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/dist/version.txt" "${PROJECT_VERSION}")
+endif()
+
 # Additional import path used to resolve QML modules in Qt Creator's code model
 set(QML_IMPORT_PATH ${CMAKE_CURRENT_LIST_DIR}/lib CACHE STRING "" FORCE)
 # Additional import path used to resolve QML modules just for Qt Quick Designer

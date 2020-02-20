@@ -156,7 +156,6 @@ if(PROJECT_OS_ANDROID)
         add_custom_target(
             package
             DEPENDS ${ANDROID_PACKAGE_DEPENDENCIES}
-            COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/dist"
             COMMAND ${CMAKE_COMMAND} -E copy "${ANDROID_APK_IN}" "${ANDROID_APK_OUT}"
             COMMAND ${CMAKE_COMMAND} -E copy "${ANDROID_AAB_IN}" "${ANDROID_AAB_OUT}"
             VERBATIM
@@ -224,7 +223,6 @@ elseif(PROJECT_OS_LINUX OR PROJECT_OS_POSIX)
             -qmldir=${CMAKE_CURRENT_SOURCE_DIR}/qml
             -qmlimport=${QT_INSTALL_BINS}/../qml
         COMMAND ${CMAKE_COMMAND} -E echo "Copied *.AppImage file to 'dist' directory."
-        COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/dist"
         COMMAND ${CMAKE_COMMAND} -E env Qt5_DIR=${Qt5_DIR}
             find ${CMAKE_CURRENT_BINARY_DIR}
             -type f
