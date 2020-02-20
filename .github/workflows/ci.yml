@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-    tags:
-      - 'v*'
 
 env:
   PROJECT_BUILD_DIR: "/tmp/build_folder"
@@ -97,7 +95,6 @@ jobs:
           path: ${{ env.PROJECT_BUILD_DIR }}/dist
   publish:
     name: Write Release Draft
-    if: contains(github.ref, 'tags/v')
     needs: build
     runs-on: ubuntu-latest
     steps:
