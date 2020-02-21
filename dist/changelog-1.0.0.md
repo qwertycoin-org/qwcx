@@ -1,9 +1,9 @@
 General description.
 
-# New features
+### New features
 - feature 1
 - feature 2
 
-# Fixed issues
+### Fixed issues
 - issue 1
 - issue 2
