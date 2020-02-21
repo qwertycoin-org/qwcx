@@ -6,7 +6,8 @@ on:
       - master
 
 env:
-  PROJECT_BUILD_DIR: "/tmp/build_folder"
+  PROJECT_BUILD_DIR: "/tmp/build_dir"
+  PROJECT_DISPLAY_NAME: "QWCX"
   QT_VERSION: 5.15.0
 
 jobs:
@@ -91,7 +92,7 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v1
         with:
-          name: QWCX-${{ github.sha }}-${{ github.run_id }}
+          name: ${{ env.PROJECT_DISPLAY_NAME }}-${{ github.sha }}-${{ github.run_id }}
           path: ${{ env.PROJECT_BUILD_DIR }}/dist
   publish:
     name: Write Release Draft
@@ -101,23 +102,25 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v1
         with:
-          name: QWCX-${{ github.sha }}-${{ github.run_id }}
-          path: ./artifacts
+          name: ${{ env.PROJECT_DISPLAY_NAME }}-${{ github.sha }}-${{ github.run_id }}
+          path: /tmp/artifacts
       - name: Compress Artifacts
+        env:
+          OUTPWD: "/tmp/artifacts_compressed"
         run: |
-          cd ./artifacts
-          mkdir ../artifacts_compressed
-          find . -type f -iname "QWCX-*" -exec zip -r ../artifacts_compressed/{}.zip ./{} \;
-          ls -la ../artifacts_compressed
+          mkdir $OUTPWD
+          cd /tmp/artifacts
+          find . -type f -iname "$PROJECT_DISPLAY_NAME-*" -exec zip -r $OUTPWD/{}.zip ./{} \;
+          ls -la $OUTPWD
       - name: Create Release Metadata
         id: create_release_metadata
         env:
           COMMIT_SHA: ${{ github.sha }}
         run: |
-          version_file="./artifacts/version.txt"
+          version_file="/tmp/artifacts/version.txt"
           version_from_file="$(head -n 1 $version_file)"
 
-          changelog_file="./artifacts/changelog-${version_from_file}.md"
+          changelog_file="/tmp/artifacts/changelog-${version_from_file}.md"
 
           echo "" >> $changelog_file
           echo "###### Based on ${COMMIT_SHA::8}." >> $changelog_file
@@ -128,7 +131,7 @@ jobs:
           changelog_from_file="${changelog_from_file//$'\r'/'%0D'}"
 
           echo "::set-output name=tag_name::v${version_from_file}"
-          echo "::set-output name=release_name::Release v${version_from_file}"
+          echo "::set-output name=release_name::$PROJECT_DISPLAY_NAME v${version_from_file}"
           echo "::set-output name=body::${changelog_from_file}"
       - name: Create Release
         id: create_release
@@ -153,7 +156,8 @@ jobs:
           import os
           import subprocess
           import time
-          assets = glob.glob("./artifacts_compressed/QWCX-*.zip")
+          project_display_name=os.getenv('PROJECT_DISPLAY_NAME', '')
+          assets = glob.glob("/tmp/artifacts_compressed/{}-*.zip".format(project_display_name))
           for asset in assets:
               filepath = asset
               filename = os.path.basename(filepath)
