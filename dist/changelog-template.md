@@ -1,4 +1,4 @@
-kGeneral description.
+General description.
 
 #### New features
 - feature 1
