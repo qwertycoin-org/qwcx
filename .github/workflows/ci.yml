@@ -8,7 +8,7 @@ on:
 env:
   PROJECT_BUILD_DIR: "/tmp/build_dir"
   PROJECT_DISPLAY_NAME: "QWCX"
-  QT_VERSION: 5.15.0
+  QT_VERSION: 5.14.1
 
 jobs:
   build:
@@ -55,6 +55,22 @@ jobs:
                 configure: 'cmake
                   -DCMAKE_BUILD_TYPE=Release
                   -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/cmake/polly/gcc-5-cxx14-c11.cmake
+                  -DQT5_DOWNLOAD_VERSION=$QT_VERSION
+                  -B $PROJECT_BUILD_DIR
+                  -S $GITHUB_WORKSPACE',
+                build: cmake --build . --config Release --target all,
+                check: ctest -C Release,
+                deploy: cmake --build . --config Release --target package
+              }
+          }
+          - {
+              name: "macOS (64-bit)",
+              os: "macos-latest",
+              commands: {
+                bootstrap: echo "Skipped.",
+                configure: 'cmake
+                  -DCMAKE_BUILD_TYPE=Release
+                  -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/cmake/polly/clang-cxx14.cmake
                   -DQT5_DOWNLOAD_VERSION=$QT_VERSION
                   -B $PROJECT_BUILD_DIR
                   -S $GITHUB_WORKSPACE',
