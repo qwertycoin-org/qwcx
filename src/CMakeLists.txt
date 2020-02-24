@@ -267,6 +267,27 @@ elseif(PROJECT_OS_MACOS)
     )
     unset(ICON_IN)
     unset(ICON_OUT)
+
+    set(MACDMG_IN "${CMAKE_CURRENT_BINARY_DIR}/${QWCX_TARGET_DISPLAY_NAME}.dmg")
+    set(MACDMG_OUT "${CMAKE_BINARY_DIR}/dist/${PROJECT_PACKAGE_FILE_NAME}.dmg")
+    add_custom_target(
+        package
+        DEPENDS ${TARGET_NAME}
+        COMMAND ${CMAKE_COMMAND} -E env Qt5_DIR=${Qt5_DIR}
+            ${QT_INSTALL_BINS}/macdeployqt
+            ./${QWCX_TARGET_DISPLAY_NAME}.app
+            -dmg
+            -qmldir=${CMAKE_CURRENT_SOURCE_DIR}/qml
+            -qmlimport=${QT_INSTALL_BINS}/../qml
+            -always-overwrite
+            -appstore-compliant
+        COMMAND ${CMAKE_COMMAND} -E echo "Copied *.dmg file to 'dist' directory."
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MACDMG_IN} ${MACDMG_OUT}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        VERBATIM
+    )
+    unset(MACDMG_IN)
+    unset(MACDMG_OUT)
 elseif(PROJECT_OS_WINDOWS) # Windows
     set_target_properties(
         ${TARGET_NAME}
