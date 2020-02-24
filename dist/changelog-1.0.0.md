@@ -1,4 +1,4 @@
-kGeneral description.
+General description.
 
 #### New features
 - feature 1
@@ -9,8 +9,8 @@ kGeneral description.
 - issue 2
 
 #### Supported platforms
-- Android
-- iOS
-- Linux
-- macOS
-- Windows
+- [x] Android
+- [ ] iOS
+- [x] Linux
+- [x] macOS
+- [ ] Windows
