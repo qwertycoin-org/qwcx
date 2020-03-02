@@ -17,7 +17,8 @@ endif()
 
 set(TARGET_NAME "${PROJECT_NAME_CAMELCASE}Executable")
 
-set(TARGET_QRC
+qt5_add_big_resources(
+    TARGET_QRC
     "${CMAKE_CURRENT_LIST_DIR}/resources/resources.qrc"
 )
 
