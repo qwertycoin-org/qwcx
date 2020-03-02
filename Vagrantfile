@@ -106,7 +106,8 @@ Vagrant.configure("2") do |config|
             path: "scripts/ci/win32.ps1"
 
         win32.vm.provision "configure", type: "shell", privileged: false, run: "never", inline: <<-SHELL
-            cmake -DCMAKE_BUILD_TYPE=Release \
+            cmake -G "Visual Studio 16 2019" \
+                  -A Win32 \
                   -DCMAKE_TOOLCHAIN_FILE=\"C:#{VAGRANT_SYNCED_FOLDER}\"/cmake/polly/vs-16-2019-cxx17.cmake \
                   -DQT5_DOWNLOAD_VERSION="5.14.1" \
                   -B \"C:#{VAGRANT_BUILD_FOLDER}\" \
@@ -115,17 +116,17 @@ Vagrant.configure("2") do |config|
 
         win32.vm.provision "build", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"C:#{VAGRANT_BUILD_FOLDER}\"
-            cmake --build . --config Release
+            cmake --build . --config Release --target ALL_BUILD
         SHELL
 
         win32.vm.provision "check", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"C:#{VAGRANT_BUILD_FOLDER}\"
-            # TODO: ctest -C Release
+            ctest -C Release
         SHELL
 
         win32.vm.provision "deploy", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"C:#{VAGRANT_BUILD_FOLDER}\"
-            # TODO: cmake --build . --config Release --target package
+            cmake --build . --config Release --target package
         SHELL
     end
 
@@ -141,7 +142,8 @@ Vagrant.configure("2") do |config|
             path: "scripts/ci/win64.ps1"
 
         win64.vm.provision "configure", type: "shell", privileged: false, run: "never", inline: <<-SHELL
-            cmake -DCMAKE_BUILD_TYPE=Release \
+            cmake -G "Visual Studio 16 2019" \
+                  -A Win64 \
                   -DCMAKE_TOOLCHAIN_FILE=\"C:#{VAGRANT_SYNCED_FOLDER}\"/cmake/polly/vs-16-2019-win64-cxx17.cmake \
                   -DQT5_DOWNLOAD_VERSION="5.14.1" \
                   -B \"C:#{VAGRANT_BUILD_FOLDER}\" \
@@ -150,17 +152,17 @@ Vagrant.configure("2") do |config|
 
         win64.vm.provision "build", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"C:#{VAGRANT_BUILD_FOLDER}\"
-            cmake --build . --config Release
+            cmake --build . --config Release --target ALL_BUILD
         SHELL
 
         win64.vm.provision "check", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"C:#{VAGRANT_BUILD_FOLDER}\"
-            # TODO: ctest -C Release
+            ctest -C Release
         SHELL
 
         win64.vm.provision "deploy", type: "shell", privileged: false, run: "never", inline: <<-SHELL
             cd \"C:#{VAGRANT_BUILD_FOLDER}\"
-            # TODO: cmake --build . --config Release --target package
+            cmake --build . --config Release --target package
         SHELL
     end
 
