@@ -295,6 +295,53 @@ elseif(PROJECT_OS_WINDOWS) # Windows
         PROPERTIES
         OUTPUT_NAME "${QWCX_TARGET_DISPLAY_NAME}"
     )
+
+    foreach(_config_type ${CMAKE_CONFIGURATION_TYPES})
+        if("${_config_type}" STREQUAL "Debug")
+            set(_assumed_binaries_type "--debug")
+        else()
+            set(_assumed_binaries_type "--release")
+        endif()
+
+        string(TOLOWER "${_config_type}" _config_type_lowercase)
+        string(TOUPPER "${_config_type}" _config_type_uppercase)
+        set(_output_directory_prefix "${CMAKE_CURRENT_BINARY_DIR}/${_config_type}")
+
+        set_target_properties(
+            ${TARGET_NAME}
+            PROPERTIES
+            ARCHIVE_OUTPUT_DIRECTORY_${_config_type_uppercase} "${_output_directory_prefix}/lib"
+            LIBRARY_OUTPUT_DIRECTORY_${_config_type_uppercase} "${_output_directory_prefix}/lib"
+            RUNTIME_OUTPUT_DIRECTORY_${_config_type_uppercase} "${_output_directory_prefix}/bin"
+        )
+
+        add_custom_target(
+            package-${_config_type_lowercase}
+            DEPENDS ${TARGET_NAME}
+            COMMAND ${CMAKE_COMMAND} -E env Qt5_DIR="${Qt5_DIR}"
+                ${QT_INSTALL_BINS}/windeployqt
+                ${_assumed_binaries_type}
+                --force
+                --qmldir=${CMAKE_CURRENT_SOURCE_DIR}/qml
+                --qmlimport=${QT_INSTALL_BINS}/../qml
+                --compiler-runtime
+                $<TARGET_FILE:${TARGET_NAME}>
+            COMMAND powershell Compress-Archive
+                -Path "${_output_directory_prefix}/*"
+                -DestinationPath "${CMAKE_BINARY_DIR}/dist/${PROJECT_PACKAGE_FILE_NAME}.zip"
+                -CompressionLevel Optimal
+                -Force
+            WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/${_config_type}"
+            VERBATIM
+        )
+
+        unset(_assumed_binaries_type)
+        unset(_config_type_lowercase)
+        unset(_config_type_uppercase)
+        unset(_output_directory_prefix)
+    endforeach()
+
+    add_custom_target(package DEPENDS ${TARGET_NAME} package-release)
 else() # unknown OS
     message(ERROR "Unknown (or unsupported) OS! Can't continue! Sorry.")
 endif()
