@@ -43,9 +43,9 @@ jobs:
                   -DQT5_DOWNLOAD_VERSION=$QT_VERSION
                   -B $PROJECT_BINARY_DIR
                   -S $PROJECT_SOURCE_DIR',
-                build: cmake --build . --config Release --target all,
+                build: cmake --build $PROJECT_BINARY_DIR --config Release --target all,
                 check: ctest -C Release,
-                deploy: cmake --build . --config Release --target package
+                deploy: cmake --build $PROJECT_BINARY_DIR --config Release --target package
               }
           }
           - {
@@ -59,9 +59,9 @@ jobs:
                   -DQT5_DOWNLOAD_VERSION=$QT_VERSION
                   -B $PROJECT_BINARY_DIR
                   -S $PROJECT_SOURCE_DIR',
-                build: cmake --build . --config Release --target all,
+                build: cmake --build $PROJECT_BINARY_DIR --config Release --target all,
                 check: ctest -C Release,
-                deploy: cmake --build . --config Release --target package
+                deploy: cmake --build $PROJECT_BINARY_DIR --config Release --target package
               }
           }
           - {
@@ -75,9 +75,26 @@ jobs:
                   -DQT5_DOWNLOAD_VERSION=$QT_VERSION
                   -B $PROJECT_BINARY_DIR
                   -S $PROJECT_SOURCE_DIR',
-                build: cmake --build . --config Release --target all,
+                build: cmake --build $PROJECT_BINARY_DIR --config Release --target all,
                 check: ctest -C Release,
-                deploy: cmake --build . --config Release --target package
+                deploy: cmake --build $PROJECT_BINARY_DIR --config Release --target package
+              }
+          }
+          - {
+              name: "Windows (32-bit)",
+              os: "windows-latest",
+              commands: {
+                bootstrap: echo "Skipped.",
+                configure: 'cmake
+                  -G "Visual Studio 16 2019"
+                  -A Win32
+                  -DCMAKE_TOOLCHAIN_FILE=$PROJECT_SOURCE_DIR/cmake/polly/vs-16-2019-cxx17.cmake
+                  -DQT5_DOWNLOAD_VERSION=$QT_VERSION
+                  -B $PROJECT_BINARY_DIR
+                  -S $PROJECT_SOURCE_DIR',
+                build: cmake --build $PROJECT_BINARY_DIR --config Release --target ALL_BUILD,
+                check: ctest -C Release,
+                deploy: cmake --build $PROJECT_BINARY_DIR --config Release --target package
               }
           }
     steps:
@@ -100,22 +117,29 @@ jobs:
       - name: Bootstrap (Install Dependencies)
         run: ${{ matrix.config.commands.bootstrap }}
       - name: Configure
+        shell: bash
         run: ${{ matrix.config.commands.configure }}
       - name: Build
+        shell: bash
         run: ${{ matrix.config.commands.build }}
-        working-directory: ${{ env.PROJECT_BINARY_DIR }}
       - name: Check
+        shell: bash
         run: ${{ matrix.config.commands.check }}
-        working-directory: ${{ env.PROJECT_BINARY_DIR }}
       - name: Deploy (create package)
+        shell: bash
         run: ${{ matrix.config.commands.deploy }}
-        working-directory: ${{ env.PROJECT_BINARY_DIR }}
       - name: Upload Artifacts
-        if: success()
+        if: success() && (runner.os != 'Windows')
         uses: actions/upload-artifact@v1
         with:
           name: ${{ env.PROJECT_DISPLAY_NAME }}-${{ github.sha }}-${{ github.run_id }}
           path: ${{ env.PROJECT_BINARY_DIR }}/dist
+      - name: Upload Artifacts (Windows)
+        if: success() && (runner.os == 'Windows')
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ env.PROJECT_DISPLAY_NAME }}-${{ github.sha }}-${{ github.run_id }}
+          path: "C:/Users/runneradmin/AppData/Local/Temp/qwcx_build/dist"
   publish:
     name: Write Release Draft
     needs: build

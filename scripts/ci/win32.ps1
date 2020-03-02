@@ -6,6 +6,7 @@ choco install -y visualstudio2019buildtools
 choco install -y visualstudio2019-workload-vctools --package-parameters "--includeRecommended"
 choco install -y --execution-timeout=0 visualstudio2019-workload-manageddesktop
 
+Import-Module PowerShellGet
 Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
 Install-Module -Name Pscx -MinimumVersion 3.2.2 -AllowClobber
 
