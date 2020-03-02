@@ -26,8 +26,9 @@ if(CMAKE_TOOLCHAIN_FILE)
     list(INSERT ZXing_CMAKE_ARGS 0 "-DCMAKE_TOOLCHAIN_FILE:PATH=${CMAKE_TOOLCHAIN_FILE}")
 endif()
 
-if (MSVC)
-    list(INSERT ZXing_CMAKE_ARGS 0 "-DLINK_CPP_STATICALLY:BOOL=TRUE")
+if(MSVC)
+    message(STATUS "ZXing: LINK_CPP_STATICALLY is set to FALSE")
+    list(INSERT ZXing_CMAKE_ARGS 0 "-DLINK_CPP_STATICALLY:BOOL=FALSE")
 endif()
 
 ExternalProject_Add(ZXing
@@ -48,10 +49,12 @@ ExternalProject_Add(ZXing
     # INSTALL_COMMAND (use default)
 )
 
+set(ZXing_STATIC_LIBRARY_NAME "${CMAKE_STATIC_LIBRARY_PREFIX}ZXingCore${CMAKE_STATIC_LIBRARY_SUFFIX}")
+
 ExternalProject_Get_property(ZXing INSTALL_DIR)
 get_filename_component(ZXing_DIR "${INSTALL_DIR}" ABSOLUTE CACHE)
 set(ZXing_INCLUDE_DIRS "${ZXing_DIR}/include")
-set(ZXing_STATIC_LIBRARY "${ZXing_DIR}/lib/libZXingCore${CMAKE_STATIC_LIBRARY_SUFFIX}")
+set(ZXing_STATIC_LIBRARY "${ZXing_DIR}/lib/${ZXing_STATIC_LIBRARY_NAME}")
 mark_as_advanced(ZXing_DIR ZXing_INCLUDE_DIRS ZXing_STATIC_LIBRARY)
 
 add_library(ZXing::Core STATIC IMPORTED)
