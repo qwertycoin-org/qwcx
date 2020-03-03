@@ -97,6 +97,23 @@ jobs:
                 deploy: cmake --build $PROJECT_BINARY_DIR --config Release --target package
               }
           }
+          - {
+              name: "Windows (64-bit)",
+              os: "windows-latest",
+              commands: {
+                bootstrap: echo "Skipped.",
+                configure: 'cmake
+                  -G "Visual Studio 16 2019"
+                  -A Win64
+                  -DCMAKE_TOOLCHAIN_FILE=$PROJECT_SOURCE_DIR/cmake/polly/vs-16-2019-win64-cxx17.cmake
+                  -DQT5_DOWNLOAD_VERSION=$QT_VERSION
+                  -B $PROJECT_BINARY_DIR
+                  -S $PROJECT_SOURCE_DIR',
+                build: cmake --build $PROJECT_BINARY_DIR --config Release --target ALL_BUILD,
+                check: ctest -C Release,
+                deploy: cmake --build $PROJECT_BINARY_DIR --config Release --target package
+              }
+          }
     steps:
       - name: Checkout
         uses: actions/checkout@v2
