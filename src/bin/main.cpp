@@ -1,6 +1,8 @@
+#include <QtPlugin>
 #include <QtWidgets/QApplication>
 #include "applicationdelegate.h"
-#include "applicationplugins.h"
+
+Q_IMPORT_PLUGIN(QwcxControlsPlugin)
 
 QWCX_USE_NAMESPACE
 

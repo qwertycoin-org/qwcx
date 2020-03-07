@@ -33,7 +33,6 @@ set(TARGET_SRC
     "${CMAKE_CURRENT_LIST_DIR}/bin/applicationconstants.h"
     "${CMAKE_CURRENT_LIST_DIR}/bin/applicationdelegate.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/bin/applicationdelegate.h"
-    "${CMAKE_CURRENT_LIST_DIR}/bin/applicationplugins.h"
     "${CMAKE_CURRENT_LIST_DIR}/bin/main.cpp"
     ${TARGET_QRC}
     ${TARGET_COMPILED_QRC}

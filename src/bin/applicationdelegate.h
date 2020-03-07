@@ -19,7 +19,7 @@ public:
     ~ApplicationDelegate() override;
 
     bool show();
-    void close();
+    void hide();
 
 public slots:
     static void handleDebugMessage(QtMsgType t, const QMessageLogContext &ctx, const QString &msg);
@@ -31,7 +31,6 @@ private:
     void initializeCredentials();
     void initializeDeclarativeControlsStyle();
     void initializeDeclarativeControlsFallbackStyle();
-    void initializeExternalResources();
     void initializeFontDatabase();
     void initializeIconTheme();
 

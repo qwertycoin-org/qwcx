@@ -3,16 +3,10 @@
 #include <QtGui/QFontDatabase>
 #include <QtGui/QIcon>
 #include <QtQml/QQmlApplicationEngine>
-#include <QtQml/QQmlFileSelector>
 #include <QtQuickControls2/QQuickStyle>
 #include <QtWidgets/QApplication>
 #include "applicationconstants.h"
 #include "applicationdelegate.h"
-
-inline void initializeExternalQrcFiles()
-{
-    Q_INIT_RESOURCE(qmlcontrols);
-}
 
 QWCX_BEGIN_NAMESPACE
 
@@ -25,7 +19,10 @@ ApplicationDelegate::ApplicationDelegate(QObject *parent)
 
 ApplicationDelegate::~ApplicationDelegate()
 {
-    close();
+    if (m_qmlApplicationEngine) {
+        delete m_qmlApplicationEngine;
+        m_qmlApplicationEngine = nullptr;
+    }
 }
 
 bool ApplicationDelegate::show()
@@ -34,26 +31,25 @@ bool ApplicationDelegate::show()
         return false;
 
     m_qmlApplicationEngine = new QQmlApplicationEngine(this);
-
-    auto *selector = new QQmlFileSelector(m_qmlApplicationEngine, m_qmlApplicationEngine);
-    if (QQuickStyle::name() == QStringLiteral("Materialized")) {
-        selector->setExtraSelectors(QStringList() << QStringLiteral("material"));
-    } else {
-        // TODO: Add file selectors for other custom styles.
-    }
-
     m_qmlApplicationEngine->addImportPath(QStringLiteral(":/lib"));
     m_qmlApplicationEngine->load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     return (m_qmlApplicationEngine->rootObjects().count() == 1);
 }
 
-void ApplicationDelegate::close()
+void ApplicationDelegate::hide()
 {
-    if (m_qmlApplicationEngine) {
-        delete m_qmlApplicationEngine;
-        m_qmlApplicationEngine = nullptr;
-    }
+    if (!m_qmlApplicationEngine)
+        return;
+
+    if (m_qmlApplicationEngine->rootObjects().count() < 1)
+        return;
+
+    QObject *rootWindow = m_qmlApplicationEngine->rootObjects().at(0);
+    if (rootWindow->metaObject()->indexOfMethod("hide") < 0)
+        return;
+
+    rootWindow->metaObject()->invokeMethod(rootWindow, "hide", Qt::DirectConnection);
 }
 
 void ApplicationDelegate::handleDebugMessage(QtMsgType t,
@@ -76,7 +72,6 @@ void ApplicationDelegate::initialize()
     initializeCredentials();
     initializeDeclarativeControlsStyle();
     initializeDeclarativeControlsFallbackStyle();
-    initializeExternalResources();
     initializeFontDatabase();
     initializeIconTheme();
 }
@@ -104,20 +99,14 @@ void ApplicationDelegate::initializeDeclarativeControlsStyle()
 {
     // The style must be configured before loading QML that imports Qt Quick Controls 2.
     // It is not possible to change the style after the QML types have been registered.
-    QQuickStyle::setStyle(QStringLiteral("Materialized"));
-    QQuickStyle::addStylePath(QStringLiteral(":/lib/QWCX/Controls/imports/styles"));
+    QQuickStyle::setStyle(QStringLiteral("Material"));
 }
 
 void ApplicationDelegate::initializeDeclarativeControlsFallbackStyle()
 {
     // The fallback style must be the name of one of the built-in Qt Quick Controls 2
-    // styles, e.g. "Material".
-    QQuickStyle::setFallbackStyle(QStringLiteral("Material"));
-}
-
-void ApplicationDelegate::initializeExternalResources()
-{
-    initializeExternalQrcFiles();
+    // styles, e.g. "Default".
+    QQuickStyle::setFallbackStyle(QStringLiteral("Default"));
 }
 
 void ApplicationDelegate::initializeFontDatabase()
