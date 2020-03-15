@@ -1,18 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/qml">
-        <file>Pages/BalancePage.qml</file>
-        <file>Pages/FundsRequestPage.qml</file>
-        <file>Pages/FundsTransferPage.qml</file>
-        <file>Pages/MainPage.qml</file>
-        <file>Pages/QrCodeScannerPage.qml</file>
-        <file>Pages/RecipientsPage.qml</file>
-        <file>Pages/SettingsPage.qml</file>
-        <file>Pages/TransactionDetailsPage.qml</file>
-        <file>Pages/TransactionHistoryPage.qml</file>
-        <file>Pages/WalletCreationPage.qml</file>
-        <file>Pages/WalletRestorationPage.qml</file>
-        <file>Pages/WelcomePage.qml</file>
         <file>main.qml</file>
     </qresource>
 </RCC>
