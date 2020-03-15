@@ -1,16 +1,18 @@
-set(TARGET_NAME "${PROJECT_NAME_CAMELCASE}Framework_Controls")
-set(TARGET_NAME_ALIAS "${PROJECT_NAME_CAMELCASE}Framework::Controls")
-set(TARGET_OUTPUT_NAME "${PROJECT_NAME_LOWERCASE}controlsplugin")
-set(TARGET_MOC_OPTIONS "-Muri=${PROJECT_NAME_CAMELCASE}.Controls")
+set(TARGET_NAME "${PROJECT_NAME_CAMELCASE}Framework_Controls_Fluid")
+set(TARGET_NAME_ALIAS "${PROJECT_NAME_CAMELCASE}Framework::Controls::Fluid")
+set(TARGET_OUTPUT_NAME "${PROJECT_NAME_LOWERCASE}controlsfluidplugin")
+set(TARGET_MOC_OPTIONS "-Muri=${PROJECT_NAME_CAMELCASE}.Controls.Fluid")
 
 qtquick_compiler_add_resources(
     TARGET_COMPILED_QRC
-    "${CMAKE_CURRENT_LIST_DIR}/qwcxcontrolsplugin.qrc"
+    "${CMAKE_CURRENT_LIST_DIR}/qwcxcontrolsfluidplugin.qrc"
 )
 
 set(TARGET_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/qwcxcontrolsplugin.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/qwcxcontrolsplugin.h"
+    "${CMAKE_CURRENT_LIST_DIR}/qwcxcontrolsfluidstyle.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/qwcxcontrolsfluidstyle_p.h"
+    "${CMAKE_CURRENT_LIST_DIR}/qwcxcontrolsfluidplugin.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/qwcxcontrolsfluidplugin.h"
     ${TARGET_COMPILED_QRC}
 )
 
@@ -22,6 +24,8 @@ set(TARGET_INCLUDE_DIRS
     "${Qt5QuickControls2_INCLUDE_DIRS}"
     "${Qt5Widgets_INCLUDE_DIRS}"
     "${${PROJECT_NAME_CAMELCASE}_INCLUDE_DIRS}"
+    PRIVATE
+    "${Qt5QuickControls2_PRIVATE_INCLUDE_DIRS}"
 )
 list(REMOVE_DUPLICATES TARGET_INCLUDE_DIRS)
 

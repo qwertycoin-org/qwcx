@@ -1,0 +1,4 @@
+module QWCX.Controls.Fluid
+plugin qwcxcontrolsfluidplugin
+classname QwcxControlsFluidPlugin
+typeinfo pluging.qmltypes

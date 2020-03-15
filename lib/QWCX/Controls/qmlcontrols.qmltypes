@@ -1,5 +1,0 @@
-import QtQuick.tooling 1.2
-
-Module {
-    dependencies: ["QtQuick.Controls 2.12"]
-}

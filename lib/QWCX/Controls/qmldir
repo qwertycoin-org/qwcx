@@ -1,10 +1,8 @@
 module QWCX.Controls
-CarouselDelegate 1.0 ./imports/controls/CarouselDelegate.qml
-CarouselView 1.0 ./imports/controls/CarouselView.qml
-Heading 1.0 ./imports/controls/Heading.qml
-OutlinedButton 1.0 ./imports/controls/OutlinedButton.qml
-QwcTransactionDelegate 1.0 ./imports/controls/QwcTransactionDelegate.qml
-QwcTransactionListView 1.0 ./imports/controls/QwcTransactionListView.qml
-plugin qmlcontrolsplugin
-classname QmlControlsPlugin
-typeinfo qmlcontrols.qmltypes
+plugin qwcxcontrolsplugin
+classname QwcxControlsPlugin
+typeinfo pluging.qmltypes
+
+Caption 1.0 ./imports/typography/Caption.qml
+Headline 1.0 ./imports/typography/Headline.qml
+Subtitle 1.0 ./imports/typography/Subtitle.qml

@@ -59,6 +59,7 @@ set(TARGET_LINK_LIBS
     Qt5::Svg
     Qt5::Widgets
     QWCXFramework::Controls
+    QWCXFramework::Controls::Fluid
     QWCXFramework::Global
 )
 

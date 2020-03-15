@@ -3,6 +3,7 @@
 #include "applicationdelegate.h"
 
 Q_IMPORT_PLUGIN(QwcxControlsPlugin)
+Q_IMPORT_PLUGIN(QwcxControlsFluidPlugin)
 
 QWCX_USE_NAMESPACE
 

@@ -1,0 +1,9 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/lib/QWCX/Controls">
+        <file>imports/typography/Caption.qml</file>
+        <file>imports/typography/Headline.qml</file>
+        <file>imports/typography/Subtitle.qml</file>
+        <file>qmldir</file>
+    </qresource>
+</RCC>

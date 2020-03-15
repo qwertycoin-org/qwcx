@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/lib/QWCX/Controls/Fluid">
+        <file>internal/MaterialStyleAdapter.qml</file>
+        <file>internal/UniversalStyleAdapter.qml</file>
+        <file>qmldir</file>
+    </qresource>
+</RCC>
