@@ -30,7 +30,6 @@ private:
     void initializeBreakpad();
     void initializeCredentials();
     void initializeDeclarativeControlsStyle();
-    void initializeDeclarativeControlsFallbackStyle();
     void initializeFontDatabase();
     void initializeIconTheme();
 

@@ -71,7 +71,6 @@ void ApplicationDelegate::initialize()
     initializeBreakpad();
     initializeCredentials();
     initializeDeclarativeControlsStyle();
-    initializeDeclarativeControlsFallbackStyle();
     initializeFontDatabase();
     initializeIconTheme();
 }
@@ -97,33 +96,30 @@ void ApplicationDelegate::initializeCredentials()
 
 void ApplicationDelegate::initializeDeclarativeControlsStyle()
 {
+    qputenv("QT_QUICK_CONTROLS_CONF", QByteArrayLiteral(":/resources/qtquickcontrols2.conf"));
+
     // The style must be configured before loading QML that imports Qt Quick Controls 2.
     // It is not possible to change the style after the QML types have been registered.
+#ifdef Q_OS_WINDOWS
+    QQuickStyle::setStyle(QStringLiteral("Universal"));
+#else
     QQuickStyle::setStyle(QStringLiteral("Material"));
-}
+#endif
 
-void ApplicationDelegate::initializeDeclarativeControlsFallbackStyle()
-{
-    // The fallback style must be the name of one of the built-in Qt Quick Controls 2
-    // styles, e.g. "Default".
+    // The fallback style must be the name of one of the built-in Qt Quick Controls 2 styles.
     QQuickStyle::setFallbackStyle(QStringLiteral("Default"));
 }
 
 void ApplicationDelegate::initializeFontDatabase()
 {
     const QStringList fonts = QStringList()
-        << QStringLiteral("Roboto/Roboto-Black.ttf")
-        << QStringLiteral("Roboto/Roboto-BlackItalic.ttf")
-        << QStringLiteral("Roboto/Roboto-Bold.ttf")
-        << QStringLiteral("Roboto/Roboto-BoldItalic.ttf")
-        << QStringLiteral("Roboto/Roboto-Light.ttf")
-        << QStringLiteral("Roboto/Roboto-LightItalic.ttf")
-        << QStringLiteral("Roboto/Roboto-Medium.ttf")
-        << QStringLiteral("Roboto/Roboto-MediumItalic.ttf")
-        << QStringLiteral("Roboto/Roboto-Regular.ttf")
-        << QStringLiteral("Roboto/Roboto-RegularItalic.ttf")
-        << QStringLiteral("Roboto/Roboto-Thin.ttf")
-        << QStringLiteral("Roboto/Roboto-ThinItalic.ttf");
+        << QStringLiteral("Eczar/Eczar-Bold.ttf")
+        << QStringLiteral("Eczar/Eczar-Regular.ttf")
+        << QStringLiteral("Roboto/Roboto-Regular.ttf") // Unused. Makes "Material" style happy.
+        << QStringLiteral("RobotoCondensed/RobotoCondensed-Bold.ttf")
+        << QStringLiteral("RobotoCondensed/RobotoCondensed-Light.ttf")
+        << QStringLiteral("RobotoCondensed/RobotoCondensed-Regular.ttf")
+        << QStringLiteral("SegoeUI/SegoeUI-Regular.ttf"); // Unused. Makes "Universal" style happy.
 
     for (const QString &font : fonts) {
         const QString fileName = QStringLiteral(":/resources/fonts/%1").arg(font);
