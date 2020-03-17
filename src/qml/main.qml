@@ -9,6 +9,7 @@ ApplicationWindow {
     height: 568
     minimumWidth: 320
     minimumHeight: 480
+    font: Fluid.font(Fluid.Body1)
     title: Qt.application.displayName
     visible: true
 

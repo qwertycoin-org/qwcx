@@ -2,6 +2,7 @@
 #define QWCX_CONTROLS_FLUID_QWCXCONTROLSFLUIDSTYLE_P_H
 
 #include <QtGui/QColor>
+#include <QtGui/QFont>
 #include <QtQuickControls2/private/qquickattachedobject_p.h>
 #include <QWCX/Global/constants.h>
 
@@ -34,6 +35,27 @@ public:
         System
     };
     Q_ENUM(Theme)
+
+    enum FontType {
+        Headline1,
+        Headline2,
+        Headline3,
+        Headline4,
+        Headline5,
+        Headline6,
+        Subtitle1,
+        Subtitle2,
+        Body1,
+        Body2,
+        Button,
+        Caption,
+        Overline,
+        Number1,
+        Number2,
+        Number3,
+        Number4
+    };
+    Q_ENUM(FontType)
 
     explicit QwcxControlsFluidStyle(QObject *parent = nullptr);
 
@@ -126,6 +148,8 @@ public:
     void setElevation(int elevation);
     int elevation() const;
     void resetElevation();
+
+    Q_INVOKABLE QFont font(FontType type) const;
 
 Q_SIGNALS:
     void themeChanged();

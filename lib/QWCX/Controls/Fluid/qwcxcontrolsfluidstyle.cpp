@@ -797,6 +797,122 @@ void QwcxControlsFluidStyle::resetElevation()
     setElevation(0);
 }
 
+QFont QwcxControlsFluidStyle::font(QwcxControlsFluidStyle::FontType type) const
+{
+    QFont font;
+
+    switch (type) {
+    case Headline1:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Light);
+        font.setPixelSize(82);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, -1.5);
+        break;
+    case Headline2:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Light);
+        font.setPixelSize(51);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, -0.5);
+        break;
+    case Headline3:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(41);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.0);
+        break;
+    case Headline4:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(29);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.25);
+        break;
+    case Headline5:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(20);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.0);
+        break;
+    case Headline6:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Medium);
+        font.setPixelSize(17);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.15);
+        break;
+    case Subtitle1:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(14);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.15);
+        break;
+    case Subtitle2:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Medium);
+        font.setPixelSize(12);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.1);
+        break;
+    case Body1:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(14);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.5);
+        break;
+    case Body2:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(12);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.25);
+        break;
+    case Button:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Medium);
+        font.setPixelSize(13);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 1.25);
+        break;
+    case Caption:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(10);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.4);
+        break;
+    case Overline:
+        font.setFamily(QStringLiteral("Roboto Condensed"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(9);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 1.5);
+        font.setCapitalization(QFont::AllUppercase);
+        break;
+    case Number1:
+        font.setFamily(QStringLiteral("Eczar"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(33);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.25);
+        break;
+    case Number2:
+        font.setFamily(QStringLiteral("Eczar"));
+        font.setWeight(QFont::Medium);
+        font.setPixelSize(19);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.15);
+        break;
+    case Number3:
+        font.setFamily(QStringLiteral("Eczar"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(15);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.15);
+        break;
+    case Number4:
+        font.setFamily(QStringLiteral("Eczar"));
+        font.setWeight(QFont::Normal);
+        font.setPixelSize(13);
+        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.1);
+        break;
+    default:
+        // TODO: Use default system font.
+        break;
+    }
+
+    return font;
+}
+
 void QwcxControlsFluidStyle::attachedParentChange(QQuickAttachedObject *newParent,
                                                   QQuickAttachedObject *oldParent)
 {
