@@ -61,6 +61,7 @@ QwcxControlsFluidStyle::QwcxControlsFluidStyle(QObject *parent)
       m_foregroundOnError(QColor(globalForegroundOnError)),
       m_elevation(0)
 {
+    QQuickAttachedObject::init();
     initializeActiveStyleAdapter();
 }
 
