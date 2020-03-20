@@ -26,8 +26,8 @@ static uint globalForegroundOnSurface = 0xDD000000;
 static uint globalForegroundOnError = 0xFFFFFFFF;
 
 // The initial, default values of the globals (for dark theme) are hard-coded here.
-static uint darkBackground = 0xFF202020;
-static uint darkSurface = 0xFF202020;
+static uint darkBackground = 0xFF303030;
+static uint darkSurface = 0xFF303030;
 static uint darkForegroundOnBackground = 0xFFFFFFFF;
 static uint darkForegroundOnSurface = 0xFFFFFFFF;
 
