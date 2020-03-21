@@ -856,12 +856,14 @@ QFont QwcxControlsFluidStyle::font(QwcxControlsFluidStyle::FontType type) const
         font.setWeight(QFont::Normal);
         font.setPixelSize(14);
         font.setLetterSpacing(QFont::AbsoluteSpacing, 0.5);
+        font.setCapitalization(QFont::MixedCase);
         break;
     case Body2:
         font.setFamily(QStringLiteral("Roboto Condensed"));
         font.setWeight(QFont::Normal);
         font.setPixelSize(12);
         font.setLetterSpacing(QFont::AbsoluteSpacing, 0.25);
+        font.setCapitalization(QFont::MixedCase);
         break;
     case Button:
         font.setFamily(QStringLiteral("Roboto Condensed"));
