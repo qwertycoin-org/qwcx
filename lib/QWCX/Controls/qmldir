@@ -3,6 +3,12 @@ plugin qwcxcontrolsplugin
 classname QwcxControlsPlugin
 typeinfo pluging.qmltypes
 
+# containers
+Card 1.0 ./imports/containers/Card.qml
+ResponsivePage 1.0 ./imports/containers/ResponsivePage.qml
+TabView 1.0 ./imports/containers/TabView.qml
+
+# typography
 Caption 1.0 ./imports/typography/Caption.qml
 Headline 1.0 ./imports/typography/Headline.qml
 Subtitle 1.0 ./imports/typography/Subtitle.qml

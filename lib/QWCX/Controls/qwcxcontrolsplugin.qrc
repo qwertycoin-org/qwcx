@@ -1,6 +1,9 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/lib/QWCX/Controls">
+        <file>imports/containers/Card.qml</file>
+        <file>imports/containers/ResponsivePage.qml</file>
+        <file>imports/containers/TabView.qml</file>
         <file>imports/typography/Caption.qml</file>
         <file>imports/typography/Headline.qml</file>
         <file>imports/typography/Subtitle.qml</file>
