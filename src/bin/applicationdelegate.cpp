@@ -113,8 +113,7 @@ void ApplicationDelegate::initializeDeclarativeControlsStyle()
 void ApplicationDelegate::initializeFontDatabase()
 {
     const QStringList fonts = QStringList()
-        << QStringLiteral("Eczar/Eczar-Bold.ttf")
-        << QStringLiteral("Eczar/Eczar-Regular.ttf")
+        << QStringLiteral("Graduate/Graduate-Regular.ttf")
         << QStringLiteral("Roboto/Roboto-Regular.ttf") // Unused. Makes "Material" style happy.
         << QStringLiteral("RobotoCondensed/RobotoCondensed-Bold.ttf")
         << QStringLiteral("RobotoCondensed/RobotoCondensed-Light.ttf")

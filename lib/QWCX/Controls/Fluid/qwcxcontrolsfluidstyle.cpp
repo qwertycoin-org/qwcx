@@ -885,25 +885,25 @@ QFont QwcxControlsFluidStyle::font(QwcxControlsFluidStyle::FontType type) const
         font.setCapitalization(QFont::AllUppercase);
         break;
     case Number1:
-        font.setFamily(QStringLiteral("Eczar"));
+        font.setFamily(QStringLiteral("Graduate"));
         font.setWeight(QFont::Normal);
         font.setPixelSize(33);
         font.setLetterSpacing(QFont::AbsoluteSpacing, 0.25);
         break;
     case Number2:
-        font.setFamily(QStringLiteral("Eczar"));
-        font.setWeight(QFont::Medium);
+        font.setFamily(QStringLiteral("Graduate"));
+        font.setWeight(QFont::Normal);
         font.setPixelSize(19);
         font.setLetterSpacing(QFont::AbsoluteSpacing, 0.15);
         break;
     case Number3:
-        font.setFamily(QStringLiteral("Eczar"));
+        font.setFamily(QStringLiteral("Graduate"));
         font.setWeight(QFont::Normal);
         font.setPixelSize(15);
         font.setLetterSpacing(QFont::AbsoluteSpacing, 0.15);
         break;
     case Number4:
-        font.setFamily(QStringLiteral("Eczar"));
+        font.setFamily(QStringLiteral("Graduate"));
         font.setWeight(QFont::Normal);
         font.setPixelSize(13);
         font.setLetterSpacing(QFont::AbsoluteSpacing, 0.1);

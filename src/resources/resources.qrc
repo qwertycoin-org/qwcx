@@ -1,8 +1,7 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/resources">
-        <file>fonts/Eczar/Eczar-Bold.ttf</file>
-        <file>fonts/Eczar/Eczar-Regular.ttf</file>
+        <file>fonts/Graduate/Graduate-Regular.ttf</file>
         <file>fonts/Roboto/Roboto-Regular.ttf</file>
         <file>fonts/RobotoCondensed/RobotoCondensed-Bold.ttf</file>
         <file>fonts/RobotoCondensed/RobotoCondensed-Light.ttf</file>
