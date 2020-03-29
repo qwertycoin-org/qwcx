@@ -1,6 +1,11 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/qml">
+        <file>Views/BalanceView.qml</file>
+        <file>Views/RecipientsView.qml</file>
+        <file>Views/ScannerCameraView.qml</file>
+        <file>Views/ScannerView.qml</file>
+        <file>Views/SettingsView.qml</file>
         <file>main.qml</file>
     </qresource>
 </RCC>
