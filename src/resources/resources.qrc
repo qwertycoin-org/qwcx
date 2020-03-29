@@ -19,11 +19,13 @@
         <file>icons/MaterialIcons/outlined/chevron_right.svg</file>
         <file>icons/MaterialIcons/outlined/done.svg</file>
         <file>icons/MaterialIcons/outlined/done_all.svg</file>
+        <file>icons/MaterialIcons/outlined/insert_photo.svg</file>
         <file>icons/MaterialIcons/outlined/list_alt.svg</file>
         <file>icons/MaterialIcons/outlined/more_horiz.svg</file>
         <file>icons/MaterialIcons/outlined/more_vert.svg</file>
         <file>icons/MaterialIcons/outlined/people.svg</file>
         <file>icons/MaterialIcons/outlined/person_add.svg</file>
+        <file>icons/MaterialIcons/outlined/photo_camera.svg</file>
         <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>
