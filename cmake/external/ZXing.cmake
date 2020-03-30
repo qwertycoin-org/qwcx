@@ -32,10 +32,9 @@ if(MSVC)
 endif()
 
 ExternalProject_Add(ZXing
-    GIT_REPOSITORY "https://github.com/nu-book/zxing-cpp.git"
-    GIT_TAG v1.0.8
-    GIT_SHALLOW TRUE
-    GIT_PROGRESS FALSE
+    URL https://github.com/nu-book/zxing-cpp/archive/v1.0.8.zip
+    URL_HASH MD5=8b2baea7cda3b76503defe29899c4afd
+    DOWNLOAD_NO_PROGRESS FALSE
 
     UPDATE_COMMAND ""
     PATCH_COMMAND ""
