@@ -40,7 +40,7 @@ ResponsivePage {
                 }
                 display: Button.IconOnly
                 flat: true
-                icon.name: "photo_camera"
+                icon.name: "camera"
 
                 Layout.columnSpan: 1
                 Layout.rowSpan: 1
@@ -147,8 +147,8 @@ ResponsivePage {
                                 capitalization: Font.AllUppercase
                             }
                             display: Button.TextBesideIcon
-                            icon.name: "insert_photo"
-                            text: qsTr("Load QR-code from file...")
+                            icon.name: "file-alt"
+                            text: qsTr("Open file...")
                         }
                     }
                 }

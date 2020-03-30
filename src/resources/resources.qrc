@@ -7,26 +7,15 @@
         <file>fonts/RobotoCondensed/RobotoCondensed-Light.ttf</file>
         <file>fonts/RobotoCondensed/RobotoCondensed-Regular.ttf</file>
         <file>fonts/SegoeUI/SegoeUI-Regular.ttf</file>
-        <file>icons/MaterialIcons/index.theme</file>
-        <file>icons/MaterialIcons/outlined/account_balance.svg</file>
-        <file>icons/MaterialIcons/outlined/arrow_downward.svg</file>
-        <file>icons/MaterialIcons/outlined/arrow_upward.svg</file>
-        <file>icons/MaterialIcons/outlined/build.svg</file>
-        <file>icons/MaterialIcons/outlined/calendar_today.svg</file>
-        <file>icons/MaterialIcons/outlined/category.svg</file>
-        <file>icons/MaterialIcons/outlined/center_focus_strong.svg</file>
-        <file>icons/MaterialIcons/outlined/chevron_left.svg</file>
-        <file>icons/MaterialIcons/outlined/chevron_right.svg</file>
-        <file>icons/MaterialIcons/outlined/close.svg</file>
-        <file>icons/MaterialIcons/outlined/done.svg</file>
-        <file>icons/MaterialIcons/outlined/done_all.svg</file>
-        <file>icons/MaterialIcons/outlined/insert_photo.svg</file>
-        <file>icons/MaterialIcons/outlined/list_alt.svg</file>
-        <file>icons/MaterialIcons/outlined/more_horiz.svg</file>
-        <file>icons/MaterialIcons/outlined/more_vert.svg</file>
-        <file>icons/MaterialIcons/outlined/people.svg</file>
-        <file>icons/MaterialIcons/outlined/person_add.svg</file>
-        <file>icons/MaterialIcons/outlined/photo_camera.svg</file>
+        <file>icons/LineAwesome/index.theme</file>
+        <file>icons/LineAwesome/solid/camera.svg</file>
+        <file>icons/LineAwesome/solid/cog.svg</file>
+        <file>icons/LineAwesome/solid/file-alt.svg</file>
+        <file>icons/LineAwesome/solid/qrcode.svg</file>
+        <file>icons/LineAwesome/solid/telegram-plane.svg</file>
+        <file>icons/LineAwesome/solid/times.svg</file>
+        <file>icons/LineAwesome/solid/user.svg</file>
+        <file>icons/LineAwesome/solid/wallet.svg</file>
         <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>

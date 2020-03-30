@@ -93,11 +93,15 @@ ResponsivePage {
 
                 Button {
                     width: Math.floor((parent.width - parent.spacing) / 2)
+                    display: Button.TextBesideIcon
+                    icon.name: "telegram-plane"
                     text: qsTr("Send to...")
                 }
 
                 Button {
                     width: Math.floor((parent.width - parent.spacing) / 2)
+                    display: Button.TextBesideIcon
+                    icon.name: "qrcode"
                     text: qsTr("Receive")
                 }
             }

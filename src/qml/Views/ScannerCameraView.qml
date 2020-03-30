@@ -39,7 +39,7 @@ Pane {
             }
             display: RoundButton.IconOnly
             flat: true
-            icon.name: "close"
+            icon.name: "times"
 
             onClicked: view.rejected()
         }

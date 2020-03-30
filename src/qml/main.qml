@@ -24,22 +24,22 @@ ApplicationWindow {
 
         Views.BalanceView {
             title: qsTr("Balance")
-            icon: "account_balance"
+            icon: "wallet"
         }
 
         Views.RecipientsView {
             title: qsTr("Recipients")
-            icon: "people"
+            icon: "user"
         }
 
         Views.ScannerView {
             title: qsTr("Scanner")
-            icon: "photo_camera"
+            icon: "qrcode"
         }
 
         Views.SettingsView {
             title: qsTr("Settings")
-            icon: "build"
+            icon: "cog"
         }
     }
 

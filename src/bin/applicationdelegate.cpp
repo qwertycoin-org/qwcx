@@ -136,7 +136,7 @@ void ApplicationDelegate::initializeIconTheme()
     searchPaths.append(QStringLiteral(":/resources/icons"));
     QIcon::setThemeSearchPaths(searchPaths);
 
-    QIcon::setThemeName(QStringLiteral("MaterialIcons"));
+    QIcon::setThemeName(QStringLiteral("LineAwesome"));
 }
 
 QWCX_END_NAMESPACE

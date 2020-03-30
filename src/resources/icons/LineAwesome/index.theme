@@ -1,0 +1,10 @@
+[Icon Theme]
+Name=LineAwesome
+Comment=Line Awesome Icons
+Directories=solid
+
+[solid]
+Size=24
+Type=Scalable
+MinSize=16
+MaxSize=512
