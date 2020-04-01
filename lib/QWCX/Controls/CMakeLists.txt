@@ -9,6 +9,8 @@ qtquick_compiler_add_resources(
 )
 
 set(TARGET_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/qrcodeitem.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/qrcodeitem.h"
     "${CMAKE_CURRENT_LIST_DIR}/qwcxcontrolsplugin.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/qwcxcontrolsplugin.h"
     ${TARGET_COMPILED_QRC}
@@ -22,6 +24,7 @@ set(TARGET_INCLUDE_DIRS
     "${Qt5QuickControls2_INCLUDE_DIRS}"
     "${Qt5Widgets_INCLUDE_DIRS}"
     "${${PROJECT_NAME_CAMELCASE}_INCLUDE_DIRS}"
+    "${ZXing_INCLUDE_DIRS}"
 )
 list(REMOVE_DUPLICATES TARGET_INCLUDE_DIRS)
 
@@ -32,6 +35,7 @@ set(TARGET_LINK_LIBS
     Qt5::Quick
     Qt5::QuickControls2
     Qt5::Widgets
+    ZXing::Core
 )
 
 set(TARGET_COMPILE_DEFS
