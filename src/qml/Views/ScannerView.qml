@@ -45,7 +45,7 @@ ResponsivePage {
                 Layout.columnSpan: 1
                 Layout.rowSpan: 1
 
-                onClicked: camera.open()
+                onClicked: cameraDrawer.open()
             }
 
             MenuSeparator {
@@ -159,16 +159,23 @@ ResponsivePage {
     footer: null
 
     Drawer {
-        id: camera
+        id: cameraDrawer
         width: view.ApplicationWindow.window.width
         height: view.ApplicationWindow.window.height
         edge: Qt.BottomEdge
         interactive: true
 
         ScannerCameraView {
+            id: cameraItem
             anchors.fill: parent
 
-            onRejected: camera.close()
+            onAccepted: console.log("QR code: ", text)
+
+            onRejected: cameraDrawer.close()
         }
+
+        onOpened: cameraItem.start()
+
+        onAboutToHide: cameraItem.stop()
     }
 }

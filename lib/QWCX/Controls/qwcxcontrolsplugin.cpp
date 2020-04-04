@@ -1,5 +1,6 @@
 #include <QtQml/qqml.h>
 #include <QWCX/Controls/qrcodeitem.h>
+#include <QWCX/Controls/qrcodescanner.h>
 #include <QWCX/Controls/qwcxcontrolsplugin.h>
 
 inline void initResources()
@@ -34,6 +35,7 @@ void QwcxControlsPlugin::registerTypes(const char *uri)
     qmlRegisterModule(uri, 1, 0);
 
     qmlRegisterType<QrCodeItem>(uri, 1, 0, "QrCodeItem");
+    qmlRegisterType<QrCodeScanner>(uri, 1, 0, "QrCodeScanner");
 }
 
 void QwcxControlsPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
