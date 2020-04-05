@@ -103,6 +103,8 @@ ResponsivePage {
                     display: Button.TextBesideIcon
                     icon.name: "qrcode"
                     text: qsTr("Receive")
+
+                    onClicked: fundsRequestDrawer.open()
                 }
             }
 
@@ -322,4 +324,21 @@ ResponsivePage {
     }
 
     footer: null
+
+    Drawer {
+        id: fundsRequestDrawer
+        width: view.ApplicationWindow.window.width
+        height: view.ApplicationWindow.window.height
+        edge: Qt.RightEdge
+        interactive: true
+
+        FundsRequestPage {
+            anchors.fill: parent
+            leftAction: Action {
+                icon.name: "arrow-left"
+
+                onTriggered: fundsRequestDrawer.close()
+            }
+        }
+    }
 }
