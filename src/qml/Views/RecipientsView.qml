@@ -61,7 +61,7 @@ ResponsivePage {
                         }
                         display: Button.IconOnly
                         flat: true
-                        icon.name: "person_add"
+                        icon.name: "user-plus"
                         text: ""
 
                         Layout.columnSpan: 1

@@ -8,12 +8,15 @@
         <file>fonts/RobotoCondensed/RobotoCondensed-Regular.ttf</file>
         <file>fonts/SegoeUI/SegoeUI-Regular.ttf</file>
         <file>icons/LineAwesome/index.theme</file>
+        <file>icons/LineAwesome/solid/arrow-left.svg</file>
         <file>icons/LineAwesome/solid/camera.svg</file>
         <file>icons/LineAwesome/solid/cog.svg</file>
         <file>icons/LineAwesome/solid/file-alt.svg</file>
         <file>icons/LineAwesome/solid/qrcode.svg</file>
+        <file>icons/LineAwesome/solid/question-circle.svg</file>
         <file>icons/LineAwesome/solid/telegram-plane.svg</file>
         <file>icons/LineAwesome/solid/times.svg</file>
+        <file>icons/LineAwesome/solid/user-plus.svg</file>
         <file>icons/LineAwesome/solid/user.svg</file>
         <file>icons/LineAwesome/solid/wallet.svg</file>
         <file>qtquickcontrols2.conf</file>
