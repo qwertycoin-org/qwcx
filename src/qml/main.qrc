@@ -2,7 +2,7 @@
 <RCC version="1.0">
     <qresource prefix="/qml">
         <file>Views/BalanceView.qml</file>
-        <file>Views/FundsRequestPage.qml</file>
+        <file>Views/FundsRequestView.qml</file>
         <file>Views/RecipientsView.qml</file>
         <file>Views/ScannerCameraView.qml</file>
         <file>Views/ScannerView.qml</file>

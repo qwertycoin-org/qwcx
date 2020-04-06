@@ -332,7 +332,7 @@ ResponsivePage {
         edge: Qt.RightEdge
         interactive: true
 
-        FundsRequestPage {
+        FundsRequestView {
             anchors.fill: parent
             leftAction: Action {
                 icon.name: "arrow-left"
