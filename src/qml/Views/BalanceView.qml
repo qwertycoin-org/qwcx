@@ -96,6 +96,8 @@ ResponsivePage {
                     display: Button.TextBesideIcon
                     icon.name: "telegram-plane"
                     text: qsTr("Send to...")
+
+                    onClicked: fundsTransferDrawer.open()
                 }
 
                 Button {
@@ -338,6 +340,23 @@ ResponsivePage {
                 icon.name: "arrow-left"
 
                 onTriggered: fundsRequestDrawer.close()
+            }
+        }
+    }
+
+    Drawer {
+        id: fundsTransferDrawer
+        width: view.ApplicationWindow.window.width
+        height: view.ApplicationWindow.window.height
+        edge: Qt.RightEdge
+        interactive: true
+
+        FundsTransferView {
+            anchors.fill: parent
+            leftAction: Action {
+                icon.name: "arrow-left"
+
+                onTriggered: fundsTransferDrawer.close()
             }
         }
     }
