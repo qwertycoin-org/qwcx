@@ -159,6 +159,8 @@ ResponsivePage {
                             capitalization: Font.AllUppercase
                         }
                         text: qsTr("See all")
+
+                        onClicked: transactionHistoryDrawer.open()
                     }
                 }
             }
@@ -357,6 +359,23 @@ ResponsivePage {
                 icon.name: "arrow-left"
 
                 onTriggered: fundsTransferDrawer.close()
+            }
+        }
+    }
+
+    Drawer {
+        id: transactionHistoryDrawer
+        width: view.ApplicationWindow.window.width
+        height: view.ApplicationWindow.window.height
+        edge: Qt.RightEdge
+        interactive: true
+
+        TransactionHistoryView {
+            anchors.fill: parent
+            leftAction: Action {
+                icon.name: "arrow-left"
+
+                onTriggered: transactionHistoryDrawer.close()
             }
         }
     }
