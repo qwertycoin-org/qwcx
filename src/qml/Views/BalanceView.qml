@@ -128,14 +128,62 @@ ResponsivePage {
                         width: parent.width
                     }
 
-                    Item {
+                    QwcTransactionListView {
                         width: parent.width
-                        height: 48
+                        height: this.count > 0 ? contentHeight : 48
+                        model: ListModel {
+                            dynamicRoles: false
+
+                            ListElement {
+                                amount: -1234.0
+                                confirmations: 0
+                                timestamp: 1574009014547
+                                hash: "9117db7aZ5b463bdf051xZ"
+                            }
+
+                            ListElement {
+                                amount: 56.0
+                                confirmations: 5
+                                timestamp: 1574008152638
+                                hash: "FzT2X921942CAL6zJM9XyS"
+                            }
+
+                            ListElement {
+                                amount: 243.0
+                                confirmations: 5
+                                timestamp: 1574008121753
+                                hash: ""
+                            }
+                        }
+                        delegate: QwcTransactionDelegate {
+                            readonly property int modelIndex: index
+                            readonly property var modelItem: model || null
+
+                            width: parent ? parent.width : 0
+                            horizontalPadding: 2
+                            amount: modelItem.amount || 0.0
+                            confirmations: modelItem.confirmations || 0
+                            timestamp: new Date(modelItem.timestamp || null)
+                            hash: modelItem.hash || ""
+
+                            onClicked: {
+                                var item = transactionDetailsComponent
+                                var properties = {
+                                    title: qsTr("Transaction Details"),
+                                    amount: modelItem.amount
+                                }
+                                var operation = StackView.PushTransition
+
+                                balancePage.push(item, properties, operation)
+                            }
+                        }
+                        interactive: false
 
                         Label {
                             anchors.centerIn: parent
                             text: qsTr("Empty transactions list.")
                             opacity: 0.5
+                            visible: parent.count < 1
                         }
                     }
 

@@ -8,6 +8,10 @@ Card 1.0 ./imports/containers/Card.qml
 ResponsivePage 1.0 ./imports/containers/ResponsivePage.qml
 TabView 1.0 ./imports/containers/TabView.qml
 
+# qwc
+QwcTransactionDelegate 1.0 ./imports/qwc/QwcTransactionDelegate.qml
+QwcTransactionListView 1.0 ./imports/qwc/QwcTransactionListView.qml
+
 # typography
 Caption 1.0 ./imports/typography/Caption.qml
 Headline 1.0 ./imports/typography/Headline.qml
