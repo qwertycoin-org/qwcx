@@ -3,6 +3,7 @@
     <qresource prefix="/qml">
         <file>Views/BalanceView.qml</file>
         <file>Views/CommunityView.qml</file>
+        <file>Views/EcosystemView.qml</file>
         <file>Views/FundsRequestView.qml</file>
         <file>Views/FundsTransferView.qml</file>
         <file>Views/RecipientsView.qml</file>

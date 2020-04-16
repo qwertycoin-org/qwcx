@@ -309,6 +309,8 @@ ResponsivePage {
                             capitalization: Font.AllUppercase
                         }
                         text: qsTr("See all")
+
+                        onClicked: ecosystemDrawer.open()
                     }
                 }
             }
@@ -452,6 +454,23 @@ ResponsivePage {
                 icon.name: "arrow-left"
 
                 onTriggered: transactionHistoryDrawer.close()
+            }
+        }
+    }
+
+    Drawer {
+        id: ecosystemDrawer
+        width: view.ApplicationWindow.window.width
+        height: view.ApplicationWindow.window.height
+        edge: Qt.RightEdge
+        interactive: true
+
+        EcosystemView {
+            anchors.fill: parent
+            leftAction: Action {
+                icon.name: "arrow-left"
+
+                onTriggered: ecosystemDrawer.close()
             }
         }
     }
