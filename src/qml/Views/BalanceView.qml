@@ -281,7 +281,7 @@ ResponsivePage {
                             leftPadding: 2
                             width: parent ? parent.width : 0
                             text: {
-                                var template = "<b>%1</b> <i>(%2)</i>"
+                                var template = "<b>%1</b> - <i>%2</i>"
                                 return template.arg(model.title).arg(model.link)
                             }
 
@@ -355,7 +355,7 @@ ResponsivePage {
                             leftPadding: 2
                             width: parent ? parent.width : 0
                             text: {
-                                var template = "<b>%1</b> <i>(%2)</i>"
+                                var template = "<b>%1</b> - <i>%2</i>"
                                 return template.arg(model.title).arg(model.link)
                             }
 
@@ -383,6 +383,8 @@ ResponsivePage {
                             capitalization: Font.AllUppercase
                         }
                         text: qsTr("See all")
+
+                        onClicked: communityDrawer.open()
                     }
                 }
             }
@@ -450,6 +452,23 @@ ResponsivePage {
                 icon.name: "arrow-left"
 
                 onTriggered: transactionHistoryDrawer.close()
+            }
+        }
+    }
+
+    Drawer {
+        id: communityDrawer
+        width: view.ApplicationWindow.window.width
+        height: view.ApplicationWindow.window.height
+        edge: Qt.RightEdge
+        interactive: true
+
+        CommunityView {
+            anchors.fill: parent
+            leftAction: Action {
+                icon.name: "arrow-left"
+
+                onTriggered: communityDrawer.close()
             }
         }
     }
