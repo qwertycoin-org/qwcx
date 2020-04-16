@@ -6,6 +6,8 @@
         <file>imports/containers/TabView.qml</file>
         <file>imports/qwc/QwcTransactionDelegate.qml</file>
         <file>imports/qwc/QwcTransactionListView.qml</file>
+        <file>imports/qwc/QwcWalletDelegate.qml</file>
+        <file>imports/qwc/QwcWalletListView.qml</file>
         <file>imports/typography/Caption.qml</file>
         <file>imports/typography/Headline.qml</file>
         <file>imports/typography/Subtitle.qml</file>

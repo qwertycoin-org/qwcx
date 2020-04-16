@@ -36,13 +36,13 @@ ResponsivePage {
                     Label {
                         width: parent.width
                         font: view.Fluid.font(Fluid.Number1)
-                        text: "0.00 QWC" // "4,137.92 QWC"
+                        text: "4,137.92 QWC"
                     }
 
                     Label {
                         width: parent.width
                         font: view.Fluid.font(Fluid.Number2)
-                        text: "$0.00" // "$12,132.49"
+                        text: "$12,132.49"
                         opacity: 0.8
                     }
 
@@ -52,14 +52,51 @@ ResponsivePage {
                         width: parent.width
                     }
 
-                    Item {
+                    QwcWalletListView {
                         width: parent.width
-                        height: 48
+                        height: this.count > 0 ? this.contentHeight : 48
+                        model: ListModel {
+                            dynamicRoles: false
+
+                            ListElement {
+                                address: "QWC1K6XEhCC1WsZzT9RRVpc1MLXXdHVKt2BUGSrsmkkXAvqh52sVnNc1p"
+                                amount: 132.77
+                                color: "#ff9800"
+                                name: "Orange Wallet"
+                            }
+
+                            ListElement {
+                                address: "QWC1K6XEhCC1WsZzT9RRVpc1MLXXdHVKt2BUGSrsmkkXAvqh52sVnNc1p"
+                                amount: 12.01
+                                color: "#4caf50"
+                                name: "Green Wallet"
+                            }
+
+                            ListElement {
+                                address: "QWC1K6XEhCC1WsZzT9RRVpc1MLXXdHVKt2BUGSrsmkkXAvqh52sVnNc1p"
+                                amount: 242.33
+                                color: "#2196f3"
+                                name: "Blue Wallet"
+                            }
+                        }
+                        delegate: QwcWalletDelegate {
+                            readonly property int modelIndex: index
+                            readonly property var modelItem: model || null
+
+                            width: parent ? parent.width : 0
+                            horizontalPadding: 2
+                            address: modelItem.address || ""
+                            amount: modelItem.amount || 0.0
+                            color: modelItem.color || "grey"
+                            name: modelItem.name || qsTr("Unnamed")
+                        }
+                        interactive: false
 
                         Label {
                             anchors.centerIn: parent
                             text: qsTr("Empty accounts list.")
                             opacity: 0.5
+                            visible: parent.count < 1
                         }
                     }
 
@@ -130,7 +167,7 @@ ResponsivePage {
 
                     QwcTransactionListView {
                         width: parent.width
-                        height: this.count > 0 ? contentHeight : 48
+                        height: this.count > 0 ? this.contentHeight : 48
                         model: ListModel {
                             dynamicRoles: false
 
@@ -165,17 +202,6 @@ ResponsivePage {
                             confirmations: modelItem.confirmations || 0
                             timestamp: new Date(modelItem.timestamp || null)
                             hash: modelItem.hash || ""
-
-                            onClicked: {
-                                var item = transactionDetailsComponent
-                                var properties = {
-                                    title: qsTr("Transaction Details"),
-                                    amount: modelItem.amount
-                                }
-                                var operation = StackView.PushTransition
-
-                                balancePage.push(item, properties, operation)
-                            }
                         }
                         interactive: false
 

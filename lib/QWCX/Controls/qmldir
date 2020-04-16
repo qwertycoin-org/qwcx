@@ -11,6 +11,8 @@ TabView 1.0 ./imports/containers/TabView.qml
 # qwc
 QwcTransactionDelegate 1.0 ./imports/qwc/QwcTransactionDelegate.qml
 QwcTransactionListView 1.0 ./imports/qwc/QwcTransactionListView.qml
+QwcWalletDelegate 1.0 ./imports/qwc/QwcWalletDelegate.qml
+QwcWalletListView 1.0 ./imports/qwc/QwcWalletListView.qml
 
 # typography
 Caption 1.0 ./imports/typography/Caption.qml
