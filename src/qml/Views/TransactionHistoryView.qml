@@ -186,11 +186,7 @@ ResponsivePage {
                     width: parent.width - 96
                     horizontalAlignment: Qt.AlignHCenter
                     verticalAlignment: Qt.AlignVCenter
-                    font: {
-                        var f = view.font
-                        f.bold = true
-                        return f
-                    }
+                    font.bold: true
                     elide: Label.ElideMiddle
                     text: Qt.formatDate(datePickerDialog.date, "MMMM, yyyy")
 
@@ -226,11 +222,7 @@ ResponsivePage {
                 delegate: Label {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    font: {
-                        var f = view.font
-                        f.bold = true
-                        return f
-                    }
+                    font.bold: true
                     text: model.shortName
                 }
                 locale: view.locale
