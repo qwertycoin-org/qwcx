@@ -202,6 +202,8 @@ ResponsivePage {
                             confirmations: modelItem.confirmations || 0
                             timestamp: new Date(modelItem.timestamp || null)
                             hash: modelItem.hash || ""
+
+                            onClicked: transactionDetailsPopup.open()
                         }
                         interactive: false
 
@@ -437,6 +439,25 @@ ResponsivePage {
                 icon.name: "arrow-left"
 
                 onTriggered: fundsTransferDrawer.close()
+            }
+        }
+    }
+
+    Popup {
+        id: transactionDetailsPopup
+        anchors.centerIn: parent
+        horizontalPadding: 0
+        verticalPadding: 0
+        width: Math.min(parent.width - 24, 640)
+        height: Math.min(parent.height - 24, 640)
+        modal: true
+
+        TransactionDetailsView {
+            anchors.fill: parent
+            leftAction: Action {
+                icon.name: "times"
+
+                onTriggered: transactionDetailsPopup.close()
             }
         }
     }

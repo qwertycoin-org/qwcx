@@ -10,6 +10,7 @@
         <file>Views/ScannerCameraView.qml</file>
         <file>Views/ScannerView.qml</file>
         <file>Views/SettingsView.qml</file>
+        <file>Views/TransactionDetailsView.qml</file>
         <file>Views/TransactionHistoryView.qml</file>
         <file>main.qml</file>
     </qresource>
