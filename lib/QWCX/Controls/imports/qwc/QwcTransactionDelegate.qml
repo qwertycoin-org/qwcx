@@ -8,7 +8,7 @@ ItemDelegate {
 
     property real amount: 0.0
     property int confirmations: 0
-    property string hash: null
+    property string hash: ""
     property date timestamp: new Date(null)
 
     contentItem: Item {
