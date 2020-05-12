@@ -7,24 +7,7 @@ import QWCX.Controls.Fluid 1.0
 ResponsivePage {
     id: view
 
-    property ListModel model: ListModel {
-        dynamicRoles: false
-
-        ListElement {
-            title: qsTr("Explorer")
-            link: "https://explorer.qwertycoin.org/"
-        }
-
-        ListElement {
-            title: qsTr("CoinMarketCap")
-            link: "https://coinmarketcap.com/currencies/qwertycoin/"
-        }
-
-        ListElement {
-            title: qsTr("CoinStats")
-            link: "https://coinstats.app/en/coins/qwertycoin"
-        }
-    }
+    property var model: []
 
     property Action leftAction: null
     property Action rightAction: Action {
@@ -72,7 +55,7 @@ ResponsivePage {
                         verticalAlignment: Label.AlignVCenter
                         leftPadding: 8
                         font.bold: true
-                        text: "%1 (%2)".arg(view.title).arg(view.model.count)
+                        text: "%1 (%2)".arg(view.title).arg(view.model.length)
 
                         Layout.columnSpan: 1
                         Layout.rowSpan: 1
@@ -105,7 +88,7 @@ ResponsivePage {
                 rightPadding: 8
                 leftPadding: 8
                 width: parent ? parent.width : 0
-                text: "<b>%1</b> - <i>%2</i>".arg(model.title).arg(model.link)
+                text: "<b>%1</b> - <i>%2</i>".arg(modelData.title).arg(modelData.link)
             }
 
             footer: null

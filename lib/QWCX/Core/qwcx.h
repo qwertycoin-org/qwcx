@@ -14,11 +14,14 @@ QWCX_CORE_BEGIN_NAMESPACE
 class Qwcx : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QVariantList ecosystemLinks READ ecosystemLinks CONSTANT)
 
     explicit Qwcx(QObject *parent = nullptr);
     ~Qwcx() override;
 
 public:
+    QVariantList ecosystemLinks() const;
+
     // Used from C++
     static Qwcx *instance();
     static Qwcx *i();

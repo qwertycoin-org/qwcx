@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QWCX.Controls 1.0
 import QWCX.Controls.Fluid 1.0
+import QWCX.Core 1.0
 
 ResponsivePage {
     id: view
@@ -260,34 +261,17 @@ ResponsivePage {
                     }
 
                     Repeater {
-                        model: ListModel {
-                            dynamicRoles: false
-
-                            ListElement {
-                                title: qsTr("Explorer")
-                                link: "https://explorer.qwertycoin.org/"
-                            }
-
-                            ListElement {
-                                title: qsTr("CoinMarketCap")
-                                link: "https://coinmarketcap.com/currencies/qwertycoin/"
-                            }
-
-                            ListElement {
-                                title: qsTr("CoinStats")
-                                link: "https://coinstats.app/en/coins/qwertycoin"
-                            }
-                        }
+                        model: Qwcx.ecosystemLinks
                         delegate: ItemDelegate {
                             rightPadding: 2
                             leftPadding: 2
                             width: parent ? parent.width : 0
                             text: {
                                 var template = "<b>%1</b> - <i>%2</i>"
-                                return template.arg(model.title).arg(model.link)
+                                return template.arg(modelData.title).arg(modelData.link)
                             }
 
-                            onClicked: Qt.openUrlExternally(model.link)
+                            onClicked: Qt.openUrlExternally(modelData.link)
                         }
                     }
 
@@ -493,6 +477,7 @@ ResponsivePage {
 
                 onTriggered: ecosystemDrawer.close()
             }
+            model: Qwcx.ecosystemLinks
         }
     }
 
