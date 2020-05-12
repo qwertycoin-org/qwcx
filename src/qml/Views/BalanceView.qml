@@ -320,34 +320,17 @@ ResponsivePage {
                     }
 
                     Repeater {
-                        model: ListModel {
-                            dynamicRoles: false
-
-                            ListElement {
-                                title: qsTr("Facebook")
-                                link: "https://facebook.com/Qwertycoin-422694361519282"
-                            }
-
-                            ListElement {
-                                title: qsTr("Medium")
-                                link: "https://medium.com/@xecuteqwc"
-                            }
-
-                            ListElement {
-                                title: qsTr("Twitter")
-                                link: "https://twitter.com/qwertycoin_qwc"
-                            }
-                        }
+                        model: Qwcx.communityLinks
                         delegate: ItemDelegate {
                             rightPadding: 2
                             leftPadding: 2
                             width: parent ? parent.width : 0
                             text: {
                                 var template = "<b>%1</b> - <i>%2</i>"
-                                return template.arg(model.title).arg(model.link)
+                                return template.arg(modelData.title).arg(modelData.link)
                             }
 
-                            onClicked: Qt.openUrlExternally(model.link)
+                            onClicked: Qt.openUrlExternally(modelData.link)
                         }
                     }
 
@@ -495,6 +478,7 @@ ResponsivePage {
 
                 onTriggered: communityDrawer.close()
             }
+            model: Qwcx.communityLinks
         }
     }
 }

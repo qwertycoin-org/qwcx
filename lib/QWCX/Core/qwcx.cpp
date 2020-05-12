@@ -15,6 +15,44 @@ Qwcx::~Qwcx()
 {
 }
 
+QVariantList Qwcx::communityLinks() const
+{
+    QVariantList links = {
+        QVariantMap({
+            {
+                QStringLiteral("title"),
+                QStringLiteral("Facebook")
+            },
+            {
+                QStringLiteral("link"),
+                QStringLiteral("https://facebook.com/Qwertycoin-422694361519282")
+            }
+        }),
+        QVariantMap({
+            {
+                QStringLiteral("title"),
+                QStringLiteral("Medium")
+            },
+            {
+                QStringLiteral("link"),
+                QStringLiteral("https://medium.com/@xecuteqwc")
+            }
+        }),
+        QVariantMap({
+            {
+                QStringLiteral("title"),
+                QStringLiteral("Twitter")
+            },
+            {
+                QStringLiteral("link"),
+                QStringLiteral("https://twitter.com/qwertycoin_qwc")
+            }
+        })
+    };
+
+    return links;
+}
+
 QVariantList Qwcx::ecosystemLinks() const
 {
     QVariantList links = {
