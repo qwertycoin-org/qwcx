@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/lib/QWCX/Core">
+        <file>imports/QwcxMetadata.qml</file>
+        <file>qmldir</file>
+    </qresource>
+</RCC>

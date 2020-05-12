@@ -4,6 +4,7 @@
 
 Q_IMPORT_PLUGIN(QwcxControlsPlugin)
 Q_IMPORT_PLUGIN(QwcxControlsFluidPlugin)
+Q_IMPORT_PLUGIN(QwcxCorePlugin)
 
 QWCX_USE_NAMESPACE
 

@@ -1,0 +1,12 @@
+import QtQuick.tooling 1.2
+
+// This file is used for QML tooling purposes only.
+
+Module {
+    dependencies: [
+        "QtQuick 2.12",
+        "QtQuick.Controls 2.12",
+        "QtQuick.Templates 2.12",
+        "QtQuick.Window 2.12"
+    ]
+}

@@ -1,0 +1,6 @@
+module QWCX.Core
+plugin qwcxcoreplugin
+classname QwcxCorePlugin
+typeinfo pluging.qmltypes
+
+QwcxMetadata 1.0 ./imports/QwcxMetadata.qml
