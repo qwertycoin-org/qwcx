@@ -1,6 +1,7 @@
 #include <QtQml/qqml.h>
 #include <QWCX/Core/qwcx.h>
 #include <QWCX/Core/qwcxcoreplugin.h>
+#include <QWCX/Core/qwcxmnemonics.h>
 
 inline void initResources()
 {
@@ -33,6 +34,7 @@ void QwcxCorePlugin::registerTypes(const char *uri)
 {
     qmlRegisterModule(uri, 1, 0);
     qmlRegisterSingletonType<Qwcx>(uri, 1, 0, "Qwcx", &Qwcx::qmlInstance);
+    qmlRegisterUncreatableType<QwcxMnemonics>(uri, 1, 0, "QwcxMnemonics", QStringLiteral("This type is uncreatable!"));
 }
 
 void QwcxCorePlugin::initializeEngine(QQmlEngine *engine, const char *uri)

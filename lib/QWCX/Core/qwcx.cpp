@@ -7,7 +7,8 @@ QWCX_CORE_BEGIN_NAMESPACE
 static Qwcx *m_instance = nullptr;
 
 Qwcx::Qwcx(QObject *parent)
-    : QObject(parent)
+    : QObject(parent),
+      m_mnemonics(new QwcxMnemonics(this))
 {
 }
 
@@ -89,6 +90,11 @@ QVariantList Qwcx::ecosystemLinks() const
     };
 
     return links;
+}
+
+QwcxMnemonics *Qwcx::mnemonics() const
+{
+    return m_mnemonics;
 }
 
 Qwcx *Qwcx::instance()
