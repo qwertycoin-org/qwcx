@@ -1,5 +1,6 @@
 #include <QWCX/Core/qwcxmnemonics.h>
 #include <QWCX/Core/private/chinesesimplifiedlanguage.h>
+#include <QWCX/Core/private/dutchlanguage.h>
 #include <QWCX/Core/private/englishlanguage.h>
 
 QWCX_CORE_BEGIN_NAMESPACE
@@ -8,7 +9,8 @@ QwcxMnemonics::QwcxMnemonics(QObject *parent)
     : QObject(parent)
 {
     m_languages = {
-        { QStringLiteral("ch_CH"), new ChineseSimplifiedLanguage() },
+        { QStringLiteral("zh_CN"), new ChineseSimplifiedLanguage() },
+        { QStringLiteral("nl_NL"), new DutchLanguage() },
         { QStringLiteral("en_US"), new EnglishLanguage() }
     };
 }
