@@ -10,6 +10,7 @@ qtquick_compiler_add_resources(
 
 set(TARGET_SRC
     "${CMAKE_CURRENT_LIST_DIR}/private/abstractlanguage.h"
+    "${CMAKE_CURRENT_LIST_DIR}/private/chinesesimplifiedlanguage.h"
     "${CMAKE_CURRENT_LIST_DIR}/private/englishlanguage.h"
     "${CMAKE_CURRENT_LIST_DIR}/qwcx.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/qwcx.h"
