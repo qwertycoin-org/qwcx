@@ -4,6 +4,7 @@
 #include <QWCX/Core/private/englishlanguage.h>
 #include <QWCX/Core/private/frenchlanguage.h>
 #include <QWCX/Core/private/germanlanguage.h>
+#include <QWCX/Core/private/italianlanguage.h>
 
 QWCX_CORE_BEGIN_NAMESPACE
 
@@ -15,7 +16,8 @@ QwcxMnemonics::QwcxMnemonics(QObject *parent)
         { QStringLiteral("nl_NL"), new DutchLanguage() },
         { QStringLiteral("en_US"), new EnglishLanguage() },
         { QStringLiteral("fr_FR"), new FrenchLanguage() },
-        { QStringLiteral("de_DE"), new GermanLanguage() }
+        { QStringLiteral("de_DE"), new GermanLanguage() },
+        { QStringLiteral("it_IT"), new ItalianLanguage() }
     };
 }
 
