@@ -10,6 +10,7 @@
 #include <QWCX/Core/private/portugueselanguage.h>
 #include <QWCX/Core/private/russianlanguage.h>
 #include <QWCX/Core/private/spanishlanguage.h>
+#include <QWCX/Core/private/ukrainianlanguage.h>
 
 QWCX_CORE_BEGIN_NAMESPACE
 
@@ -27,7 +28,8 @@ QwcxMnemonics::QwcxMnemonics(QObject *parent)
         { QStringLiteral("pl_PL"), new PolishLanguage() },
         { QStringLiteral("pr_PR"), new PortugueseLanguage() },
         { QStringLiteral("ru_RU"), new RussiaLanguage() },
-        { QStringLiteral("sp_SP"), new SpanishLanguage() }
+        { QStringLiteral("sp_SP"), new SpanishLanguage() },
+        { QStringLiteral("ua_UA"), new UkrainianLanguage() }
     };
 }
 

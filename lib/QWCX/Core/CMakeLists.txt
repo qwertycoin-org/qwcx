@@ -21,6 +21,7 @@ set(TARGET_SRC
     "${CMAKE_CURRENT_LIST_DIR}/private/portugueselanguage.h"
     "${CMAKE_CURRENT_LIST_DIR}/private/russianlanguage.h"
     "${CMAKE_CURRENT_LIST_DIR}/private/spanishlanguage.h"
+    "${CMAKE_CURRENT_LIST_DIR}/private/ukrainianlanguage.h"
     "${CMAKE_CURRENT_LIST_DIR}/qwcx.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/qwcx.h"
     "${CMAKE_CURRENT_LIST_DIR}/qwcxcoreplugin.cpp"
