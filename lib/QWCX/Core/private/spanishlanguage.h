@@ -12,7 +12,7 @@ public:
 
     std::string locale() const override
     {
-        return "sp_SP";
+        return "es";
     }
 
     std::vector<std::string> words() const override

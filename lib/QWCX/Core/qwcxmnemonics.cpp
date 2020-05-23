@@ -18,18 +18,18 @@ QwcxMnemonics::QwcxMnemonics(QObject *parent)
     : QObject(parent)
 {
     m_languages = {
-        { QStringLiteral("zh_CN"), new ChineseSimplifiedLanguage() },
-        { QStringLiteral("nl_NL"), new DutchLanguage() },
-        { QStringLiteral("en_US"), new EnglishLanguage() },
-        { QStringLiteral("fr_FR"), new FrenchLanguage() },
-        { QStringLiteral("de_DE"), new GermanLanguage() },
-        { QStringLiteral("it_IT"), new ItalianLanguage() },
-        { QStringLiteral("jp_JP"), new JapaneseLanguage() },
-        { QStringLiteral("pl_PL"), new PolishLanguage() },
-        { QStringLiteral("pr_PR"), new PortugueseLanguage() },
-        { QStringLiteral("ru_RU"), new RussiaLanguage() },
-        { QStringLiteral("sp_SP"), new SpanishLanguage() },
-        { QStringLiteral("ua_UA"), new UkrainianLanguage() }
+        { QStringLiteral("zh"), new ChineseSimplifiedLanguage() },
+        { QStringLiteral("nl"), new DutchLanguage() },
+        { QStringLiteral("en"), new EnglishLanguage() },
+        { QStringLiteral("fr"), new FrenchLanguage() },
+        { QStringLiteral("de"), new GermanLanguage() },
+        { QStringLiteral("it"), new ItalianLanguage() },
+        { QStringLiteral("ja"), new JapaneseLanguage() },
+        { QStringLiteral("pl"), new PolishLanguage() },
+        { QStringLiteral("pt"), new PortugueseLanguage() },
+        { QStringLiteral("ru"), new RussiaLanguage() },
+        { QStringLiteral("es"), new SpanishLanguage() },
+        { QStringLiteral("uk"), new UkrainianLanguage() }
     };
 }
 
