@@ -14,10 +14,10 @@ QtObject {
         ignoreUnknownSignals: true
         enabled: (control.parent !== null) && (control.fluid !== null)
 
-        onThemeChanged: control.inheritTheme(control.fluid.theme)
-        onSecondaryChanged: control.inheritAccent(control.fluid.secondary)
-        onBackgroundChanged: control.inheritBackground(control.fluid.background)
-        onForegroundChanged: control.inheritForeground(control.fluid.foreground)
+        function onThemeChanged() { control.inheritTheme(control.fluid.theme) }
+        function onSecondaryChanged() { control.inheritAccent(control.fluid.secondary) }
+        function onBackgroundChanged() { control.inheritBackground(control.fluid.background) }
+        function onForegroundChanged() { control.inheritForeground(control.fluid.foreground) }
 
         Component.onCompleted: {
             control.inheritTheme(control.fluid.theme)
