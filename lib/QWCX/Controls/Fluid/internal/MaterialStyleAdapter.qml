@@ -1,5 +1,5 @@
-import QtQuick 2.12
-import QtQuick.Controls.Material 2.12
+import QtQuick 2.15
+import QtQuick.Controls.Material 2.15
 import QWCX.Controls.Fluid 1.0
 
 QtObject {
