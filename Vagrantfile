@@ -96,7 +96,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "win32" do |win32|
         win32.vm.hostname = "win32"
-        win32.vm.box = "gusztavvargadr/windows-10"
+        win32.vm.box = "gusztavvargadr/windows-10-enterprise"
         win32.vm.box_check_update = false
 
         win32.vm.provision "bootstrap",
@@ -132,7 +132,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "win64" do |win64|
         win64.vm.hostname = "win64"
-        win64.vm.box = "gusztavvargadr/windows-10"
+        win64.vm.box = "gusztavvargadr/windows-10-enterprise"
         win64.vm.box_check_update = false
 
         win64.vm.provision "bootstrap",
